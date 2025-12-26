@@ -1,0 +1,1089 @@
+[
+  {
+    "id": 1,
+    "text": "You have a Fabric tenant. You plan to create a Fabric notebook that will use Spark DataFrames to generate Microsoft Power BI visuals. You run the code below. Identify the correct validation (True/False) for these statements:\n1. The code embeds an existing Power BI report.\n2. The code creates a Power BI report.\n3. The code displays a summary of the DataFrame.",
+    "codeSnippet": "from powerbiclient import QuickVisualize, get_dataset_config, Report\nPBI_visualize = QuickVisualize(get_dataset_config(df))\nPBI_visualize",
+    "options": [
+      { "id": "A", "text": "1: Yes, 2: No, 3: No" },
+      { "id": "B", "text": "1: No, 2: Yes, 3: No" },
+      { "id": "C", "text": "1: No, 2: No, 3: Yes" },
+      { "id": "D", "text": "1: Yes, 2: Yes, 3: No" }
+    ],
+    "correctOptionIds": ["B"],
+    "explanation": "QuickVisualize creates a new auto-generated Power BI report from the DataFrame. It does not embed an existing report (which uses the Report class with ID) nor does it just display a text summary.",
+    "domain": "Analyze"
+  },
+  {
+    "id": 2,
+    "text": "You are analyzing the data in a Fabric notebook. You have a Spark DataFrame assigned to a variable named 'df'. You need to use the Chart view in the notebook to explore the data manually. Which function should you run?",
+    "options": [
+      { "id": "A", "text": "displayHTML(df)" },
+      { "id": "B", "text": "df.show()" },
+      { "id": "C", "text": "df.write()" },
+      { "id": "D", "text": "display(df)" }
+    ],
+    "correctOptionIds": ["D"],
+    "explanation": "The display(df) function in Fabric/Databricks notebooks renders the DataFrame with rich interactive features, including the ability to switch to Chart view. df.show() only outputs text.",
+    "domain": "Analyze"
+  },
+  {
+    "id": 3,
+    "text": "You have a Fabric notebook that has the Python code shown below. The output shows a histogram of 'tip amounts' which is highly right-skewed. Which type of analytics are you performing?",
+    "codeSnippet": "# Look at a histogram of tips by count by using Matplotlib\nax1 = sampled_taxi_pd_df[\"tipAmount\"].plot(kind=\"hist\", bins=25, facecolor='lightblue')\nax1.set_title('Tip amount distribution')\n...",
+    "options": [
+      { "id": "A", "text": "Descriptive" },
+      { "id": "B", "text": "Diagnostic" },
+      { "id": "C", "text": "Prescriptive" },
+      { "id": "D", "text": "Predictive" }
+    ],
+    "correctOptionIds": ["A"],
+    "explanation": "Descriptive analytics answers 'What happened?' or 'What is happening?' by summarizing data (e.g., distributions, counts). It does not predict future outcomes or prescribe actions.",
+    "domain": "Analyze"
+  },
+  {
+    "id": 4,
+    "text": "You have a Fabric tenant with customer churn data in OneLake. You create a notebook to read the data and create column charts showing the distribution of retained vs. lost customers based on geography and demographics. Which type of analytics are you performing?",
+    "options": [
+      { "id": "A", "text": "Diagnostic" },
+      { "id": "B", "text": "Descriptive" },
+      { "id": "C", "text": "Prescriptive" },
+      { "id": "D", "text": "Predictive" }
+    ],
+    "correctOptionIds": ["B"],
+    "explanation": "Visualizing distributions of historical data to understand the current state (churned vs retained) is Descriptive analytics. While it compares groups, it primarily describes 'what happened'.",
+    "domain": "Analyze"
+  },
+  {
+    "id": 5,
+    "text": "You have a Fabric workspace with a dataflow returning 500 rows. You need to identify the min and max values for each column in the query results. Which three Data view options should you select?",
+    "options": [
+      { "id": "A", "text": "Show column value distribution" },
+      { "id": "B", "text": "Enable column profile" },
+      { "id": "C", "text": "Show column profile in details pane" },
+      { "id": "D", "text": "Show column quality details" },
+      { "id": "E", "text": "Enable details pane" }
+    ],
+    "correctOptionIds": ["B", "C", "E"],
+    "explanation": "To see min/max statistics, you need the Column Profile. This requires enabling the profile, enabling the details pane, and selecting the option to show the profile in that pane.",
+    "domain": "Prepare"
+  },
+  {
+    "id": 6,
+    "text": "You have a Fabric tenant with a Power BI report. You need to display the following column statistics for a new semantic model: Count, Average, Null count, Distinct count, Standard deviation. Which Power Query function should you run?",
+    "options": [
+      { "id": "A", "text": "Table.schema" },
+      { "id": "B", "text": "Table.view" },
+      { "id": "C", "text": "Table.FuzzyGroup" },
+      { "id": "D", "text": "Table.Profile" }
+    ],
+    "correctOptionIds": ["D"],
+    "explanation": "Table.Profile calculates extensive statistics for every column in a table, including count, nulls, min, max, average, and standard deviation.",
+    "domain": "Prepare"
+  },
+  {
+    "id": 7,
+    "text": "The Research division requires a dedicated capacity that supports ALL Fabric experiences, is available on-demand, and uses per-minute billing. What should you recommend?",
+    "options": [
+      { "id": "A", "text": "A (Azure Power BI Embedded)" },
+      { "id": "B", "text": "EM (Power BI Embedded)" },
+      { "id": "C", "text": "P (Power BI Premium)" },
+      { "id": "D", "text": "F (Fabric Capacity)" }
+    ],
+    "correctOptionIds": ["D"],
+    "explanation": "F SKUs (Fabric Capacity) are Azure resources that support all Fabric experiences and offer pay-as-you-go (per minute) billing with pause/resume capabilities.",
+    "caseStudyRef": "Contoso",
+    "domain": "Maintain"
+  },
+  {
+    "id": 8,
+    "text": "You need to assign workspace roles for the Research Reviewers. \nGroup 1: Must read lakehouse/warehouse data via SQL endpoints. \nGroup 2: Must read lakehouse data via Lakehouse explorer. \nSelect the correct role assignment pair following least privilege.",
+    "options": [
+      { "id": "A", "text": "Group1: Member, Group2: Contributor" },
+      { "id": "B", "text": "Group1: Viewer, Group2: Viewer" },
+      { "id": "C", "text": "Group1: Viewer, Group2: Contributor" },
+      { "id": "D", "text": "Group1: Contributor, Group2: Member" }
+    ],
+    "correctOptionIds": ["B"],
+    "explanation": "Viewer role allows reading via SQL endpoints (Group 1). Basic reading via Lakehouse Explorer (Group 2) also functions with Viewer permissions in many contexts, specifically when only 'Reading' is required. However, if 'Explorer' implies file interaction beyond SQL, Contributor might be needed, but strictly for reading data, Viewer is the least privilege.",
+    "caseStudyRef": "Contoso",
+    "domain": "Maintain"
+  },
+  {
+    "id": 9,
+    "text": "You need to ensure that Contoso can use version control meeting the requirement: 'All semantic models and reports for the Research division must use version control that supports branching.' What should you do?",
+    "options": [
+      { "id": "A", "text": "Store models in Data Lake Gen2" },
+      { "id": "B", "text": "Use a GitHub repository" },
+      { "id": "C", "text": "Modify workspace settings to use an Azure Repos repository" },
+      { "id": "D", "text": "Store models in OneDrive" }
+    ],
+    "correctOptionIds": ["C"],
+    "explanation": "Fabric Git integration currently supports Azure DevOps (Azure Repos). The requirement specifically asks for branching support integration at the workspace level.",
+    "caseStudyRef": "Contoso",
+    "domain": "Maintain"
+  },
+  {
+    "id": 10,
+    "text": "You need to recommend a solution to group the Research division workspaces to support OneLake data hub filtering based on department name. Select the correct Method and Tool.",
+    "options": [
+      { "id": "A", "text": "Method: Capacity, Tool: Admin portal" },
+      { "id": "B", "text": "Method: Domain, Tool: Fabric Admin portal" },
+      { "id": "C", "text": "Method: Domain, Tool: Azure AD" },
+      { "id": "D", "text": "Method: Tenant, Tool: Admin portal" }
+    ],
+    "correctOptionIds": ["B"],
+    "explanation": "Domains in Fabric are used to logically group workspaces (e.g., by department) and are configured in the Fabric Admin Portal.",
+    "caseStudyRef": "Contoso",
+    "domain": "Maintain"
+  },
+  {
+    "id": 11,
+    "text": "Configure permissions for the data store share. \nDataEngineers: Read/Write data store, NO report/dataset access. \nDataAnalysts: Build reports. \nDataScientists: Read via Spark (no write). \nSelect the correct permission set.",
+    "options": [
+      { "id": "A", "text": "DE: Read All SQL, DA: Build, DS: Read All Spark" },
+      { "id": "B", "text": "DE: Build, DA: Read All SQL, DS: Read All Spark" },
+      { "id": "C", "text": "DE: Read All Spark, DA: Build, DS: Read All SQL" },
+      { "id": "D", "text": "DE: Read All SQL, DA: Read All Spark, DS: Build" }
+    ],
+    "correctOptionIds": ["A"],
+    "explanation": "Data Engineers need SQL access for T-SQL requirements. Analysts need Build permissions to create reports on datasets. Scientists need Spark access.",
+    "caseStudyRef": "Litware",
+    "domain": "Maintain"
+  },
+  {
+    "id": 12,
+    "text": "You have a workspace WS1 on capacity C1 containing dataset DS1. You need to ensure read-write access to DS1 is available using the XMLA endpoint. What should be modified FIRST?",
+    "options": [
+      { "id": "A", "text": "The DS1 settings" },
+      { "id": "B", "text": "The WS1 settings" },
+      { "id": "C", "text": "The C1 (Capacity) settings" },
+      { "id": "D", "text": "The Tenant1 settings" }
+    ],
+    "correctOptionIds": ["C"],
+    "explanation": "XMLA Read/Write is a property of the Capacity. It must be enabled there before it works for any workspace assigned to that capacity.",
+    "domain": "Maintain"
+  },
+  {
+    "id": 13,
+    "text": "You need to ensure User1 can truncate tables in 'schemaA' only. Complete the T-SQL statement: GRANT [Action] ON [Scope] TO User1;",
+    "options": [
+      { "id": "A", "text": "Action: EXECUTE, Scope: DATABASE::schemaA" },
+      { "id": "B", "text": "Action: ALTER, Scope: SCHEMA::schemaA" },
+      { "id": "C", "text": "Action: UPDATE, Scope: OBJECT::schemaA" },
+      { "id": "D", "text": "Action: CONNECT, Scope: SCHEMA::schemaA" }
+    ],
+    "correctOptionIds": ["B"],
+    "explanation": "Truncating a table requires ALTER permissions. Granting ALTER on the specific SCHEMA scopes it correctly to just that schema.",
+    "domain": "Maintain"
+  },
+  {
+    "id": 14,
+    "text": "You need to provide developers access to a deployment pipeline (Dev -> Test -> Prod). They must deploy to Dev/Test but NOT Prod. They must view Prod. Select the permissions to assign.",
+    "options": [
+      { "id": "A", "text": "Contributor to Dev/Test, Viewer to Prod, Admin to Pipeline" },
+      { "id": "B", "text": "Admin to Dev/Test, Contributor to Prod, Viewer to Pipeline" },
+      { "id": "C", "text": "Viewer to Dev/Test, Admin to Prod, Contributor to Pipeline" },
+      { "id": "D", "text": "Member to Dev/Test, Member to Prod, Viewer to Pipeline" }
+    ],
+    "correctOptionIds": ["A"],
+    "explanation": "They need Pipeline Admin to run deployments. Contributor on source/target workspaces (Dev/Test) to deploy content. Viewer on Prod to see it but not overwrite it.",
+    "domain": "Maintain"
+  },
+  {
+    "id": 15,
+    "text": "Performance of all warehouse queries degrades several times a day. You suspect throttling. What should you use to identify if throttling is occurring?",
+    "options": [
+      { "id": "A", "text": "The Capacity settings" },
+      { "id": "B", "text": "The Monitoring hub" },
+      { "id": "C", "text": "Dynamic management views (DMVs)" },
+      { "id": "D", "text": "The Microsoft Fabric Capacity Metrics app" }
+    ],
+    "correctOptionIds": ["D"],
+    "explanation": "The Fabric Capacity Metrics app provides detailed visibility into CU (Compute Unit) consumption, smoothing, and throttling events.",
+    "domain": "Maintain"
+  },
+  {
+    "id": 16,
+    "text": "Your lakehouse queries are slow. Storage contains unused files, and many small files need combining. Match the actions to the requirements: \n1. Remove unused files \n2. Combine small files",
+    "options": [
+      { "id": "A", "text": "1: VACUUM, 2: OPTIMIZE" },
+      { "id": "B", "text": "1: OPTIMIZE, 2: VACUUM" },
+      { "id": "C", "text": "1: AutoCompact, 2: OptimizeWrite" },
+      { "id": "D", "text": "1: Delete, 2: Merge" }
+    ],
+    "correctOptionIds": ["A"],
+    "explanation": "VACUUM removes old files no longer referenced by the transaction log (retention period). OPTIMIZE compacts small files (bin-packing) into larger ones.",
+    "domain": "Maintain"
+  },
+  {
+    "id": 17,
+    "text": "You need to create a shortcut to an Azure Data Lake Storage Gen2 account (storage1) in a Lakehouse. Which Protocol and Endpoint should you specify?",
+    "options": [
+      { "id": "A", "text": "Protocol: https, Endpoint: blob" },
+      { "id": "B", "text": "Protocol: abfss, Endpoint: dfs" },
+      { "id": "C", "text": "Protocol: abfs, Endpoint: file" },
+      { "id": "D", "text": "Protocol: https, Endpoint: dfs" }
+    ],
+    "correctOptionIds": ["B"],
+    "explanation": "ABFSS (Azure Blob File System Secure) is the protocol for ADLS Gen2, and the 'dfs' endpoint is used for hierarchical namespace operations.",
+    "domain": "Prepare"
+  },
+  {
+    "id": 18,
+    "text": "You are using Power BI Desktop and Git integration. You need to ensure report and semantic model definitions are saved as individual text files in a folder hierarchy. Which format should you use?",
+    "options": [
+      { "id": "A", "text": "PBIP" },
+      { "id": "B", "text": "PBIDS" },
+      { "id": "C", "text": "PBIT" },
+      { "id": "D", "text": "PBIX" }
+    ],
+    "correctOptionIds": ["A"],
+    "explanation": "PBIP (Power BI Project) format saves the project as a folder structure containing text-based JSON definitions, compatible with Git.",
+    "domain": "Model"
+  },
+  {
+    "id": 19,
+    "text": "You need to remove files from a Delta table that were NOT referenced during the past 30 days to maintain ACID properties. What should you do?",
+    "options": [
+      { "id": "A", "text": "From OneLake file explorer, delete the files" },
+      { "id": "B", "text": "Run OPTIMIZE with Z-order" },
+      { "id": "C", "text": "Run OPTIMIZE with V-order" },
+      { "id": "D", "text": "Run the VACUUM command" }
+    ],
+    "correctOptionIds": ["D"],
+    "explanation": "VACUUM cleanly removes files that are outside the retention period, ensuring the delta log remains consistent.",
+    "domain": "Maintain"
+  },
+  {
+    "id": 20,
+    "text": "You need to prevent new tables added to Lakehouse1 from being added automatically to the default semantic model. What should you configure?",
+    "options": [
+      { "id": "A", "text": "The SQL analytics endpoint settings" },
+      { "id": "B", "text": "The semantic model settings" },
+      { "id": "C", "text": "The workspace settings" },
+      { "id": "D", "text": "The Lakehouse1 settings" }
+    ],
+    "correctOptionIds": ["A"],
+    "explanation": "In the SQL analytics endpoint, you can manage the 'Default Power BI dataset' sync settings.",
+    "domain": "Model"
+  },
+  {
+    "id": 21,
+    "text": "You plan to perform time series analysis on 1 billion items in OneLake. You need to transform, visualize, and find anomalies using parallel processing. What should you use?",
+    "options": [
+      { "id": "A", "text": "The PySpark library in a Fabric notebook" },
+      { "id": "B", "text": "The pandas library in a Fabric notebook" },
+      { "id": "C", "text": "A Power BI report with core visuals" },
+      { "id": "D", "text": "Dataflow Gen2" }
+    ],
+    "correctOptionIds": ["A"],
+    "explanation": "PySpark provides distributed parallel processing suitable for 1 billion rows. Pandas is single-node and would likely run out of memory.",
+    "domain": "Analyze"
+  },
+  {
+    "id": 22,
+    "text": "You need to allow User1 to create a new domain and subdomains, and assign workspaces to them. Follow least privilege. Which role should you assign?",
+    "options": [
+      { "id": "A", "text": "Domain admin" },
+      { "id": "B", "text": "Domain contributor" },
+      { "id": "C", "text": "Fabric admin" },
+      { "id": "D", "text": "Workspace admin" }
+    ],
+    "correctOptionIds": ["C"],
+    "explanation": "Only Fabric Admins can create new Domains. Domain Admins can only manage existing domains they are assigned to.",
+    "domain": "Maintain"
+  },
+  {
+    "id": 23,
+    "text": "User1 (Admin of Domain1) creates Workspace3. Domain1 is the default for Group1 (which contains User1). Does User2 (Admin of Workspace2) automatically get Contributor to Workspace3? Does User3 (Member of Group1) automatically get Viewer?",
+    "options": [
+      { "id": "A", "text": "Yes, Yes" },
+      { "id": "B", "text": "No, No" },
+      { "id": "C", "text": "Yes, No" },
+      { "id": "D", "text": "No, Yes" }
+    ],
+    "correctOptionIds": ["B"],
+    "explanation": "Workspace roles are not automatically inherited from Domain permissions or Group defaults in this manner. Explicit assignment is usually required upon creation.",
+    "domain": "Maintain"
+  },
+  {
+    "id": 24,
+    "text": "You need to implement Row-Level Security (RLS) for Table1 in a Warehouse. Which two objects should you create?",
+    "options": [
+      { "id": "A", "text": "Database Role & Stored Procedure" },
+      { "id": "B", "text": "Function & Security Policy" },
+      { "id": "C", "text": "Constraint & View" },
+      { "id": "D", "text": "Security Policy & Database Role" }
+    ],
+    "correctOptionIds": ["B"],
+    "explanation": "In Fabric SQL Warehouse, RLS is implemented using an inline Table-Valued Function (predicate) and a Security Policy to bind it to the table.",
+    "domain": "Maintain"
+  },
+  {
+    "id": 25,
+    "text": "Lakehouse1 has: Table1 (Shortcut), Table2 (External Spark), Table3 (Managed). You connect via SQL Endpoint. What can you do?",
+    "options": [
+      { "id": "A", "text": "Read Table3" },
+      { "id": "B", "text": "Update data in Table3" },
+      { "id": "C", "text": "Read Table2" },
+      { "id": "D", "text": "Update data in Table1" }
+    ],
+    "correctOptionIds": ["A"],
+    "explanation": "The SQL Endpoint is read-only. It can read Managed tables (Table3) and Delta tables. It generally cannot read non-Delta external tables created by Spark unless they are mapped correctly, but it definitely can read Table3.",
+    "domain": "Analyze"
+  },
+  {
+    "id": 26,
+    "text": "Implement access controls: \nSales table: Users see only their region's data. \nEmployees table: Restrict access to PII columns. \nWhat should you use?",
+    "options": [
+      { "id": "A", "text": "Sales: RLS, Employees: CLS" },
+      { "id": "B", "text": "Sales: CLS, Employees: RLS" },
+      { "id": "C", "text": "Sales: Workspace permissions, Employees: Item permissions" },
+      { "id": "D", "text": "Sales: Item permissions, Employees: RLS" }
+    ],
+    "correctOptionIds": ["A"],
+    "explanation": "Row-Level Security (RLS) filters rows (regions). Column-Level Security (CLS) masks or hides specific columns (PII).",
+    "domain": "Maintain"
+  },
+  {
+    "id": 27,
+    "text": "You need to ensure User1 can commit items to an Azure DevOps repository for Workspace1. Which two settings should you enable in the tenant?",
+    "options": [
+      { "id": "A", "text": "Create Fabric items & Sync with Git" },
+      { "id": "B", "text": "Create workflows & Sync with Git" },
+      { "id": "C", "text": "Sync with GitHub & Create items" },
+      { "id": "D", "text": "None of the above" }
+    ],
+    "correctOptionIds": ["A"],
+    "explanation": "The user needs the ability to create items (to save changes) and the specific tenant switch/permission to synchronize with Git repositories.",
+    "domain": "Maintain"
+  },
+  {
+    "id": 28,
+    "text": "Workspace1 has Pipeline1 and Lakehouse1. You add Folder1 and move Lakehouse1 into it. You run a deployment pipeline to Workspace2. What is the structure of Workspace2 (assuming folder support limitations in pipeline deployment logic often tested)?",
+    "options": [
+      { "id": "A", "text": "Pipeline1 and Lakehouse1 (Folders are not deployed)" },
+      { "id": "B", "text": "Folder1 containing Pipeline1 and Lakehouse1" },
+      { "id": "C", "text": "Pipeline1 and Folder1/Lakehouse1" },
+      { "id": "D", "text": "Folder1 containing Lakehouse1" }
+    ],
+    "correctOptionIds": ["A"],
+    "explanation": "Deployment pipelines deployed metadata to the root in earlier Fabric versions. While folders are being added, the exam often tests the flattened behavior or the fact that structure might reset.",
+    "domain": "Maintain"
+  },
+  {
+    "id": 29,
+    "text": "You create Workspace1 for the finance department. Requirements: Finance users can edit items, Workspace1 accesses storage1 securely, You are the only Admin. Which two actions?",
+    "options": [
+      { "id": "A", "text": "Assign Contributor to Group1, Create workspace identity" },
+      { "id": "B", "text": "Assign Admin to yourself, Assign Contributor to users" },
+      { "id": "C", "text": "Create workspace identity, Assign Admin to Group1" },
+      { "id": "D", "text": "Assign Member to Group1, Create Managed Identity" }
+    ],
+    "correctOptionIds": ["A"],
+    "explanation": "Assigning the Group as Contributor meets the edit requirement without giving Admin rights. A Workspace Identity allows secure, managed access to external storage (storage1).",
+    "domain": "Maintain"
+  },
+  {
+    "id": 30,
+    "text": "Pipeline Deployment: Workspace_DEV has LH1, NB1, PL1, SM1. Workspace_TEST has LH2, NB2, SM1. You deploy DEV to TEST pairing matching names. What is in TEST after deployment?",
+    "options": [
+      { "id": "A", "text": "LH1, LH2, NB1, NB2, PL1, SM1" },
+      { "id": "B", "text": "LH1, NB1, PL1, SM1" },
+      { "id": "C", "text": "LH2, NB2, PL1, SM1" },
+      { "id": "D", "text": "LH1, LH2, NB1, NB2, PL1, SM1 (Union)" }
+    ],
+    "correctOptionIds": ["A"],
+    "explanation": "Deployment pipelines update paired items (SM1) and create new items that don't exist in the target (LH1, NB1, PL1). Existing unpaired items in target (LH2, NB2) remain untouched. So you get the union.",
+    "domain": "Maintain"
+  },
+  {
+    "id": 31,
+    "text": "Deployment Pipeline Logic. \n1. Will Dataflow Gen1 (DF1) be deployed? \n2. Will Data from Model1 be deployed? \n3. Will Refresh Policy of Model1 be deployed? \nSelect the correct pattern.",
+    "options": [
+      { "id": "A", "text": "1: Yes, 2: No, 3: No" },
+      { "id": "B", "text": "1: Yes, 2: Yes, 3: Yes" },
+      { "id": "C", "text": "1: No, 2: No, 3: No" },
+      { "id": "D", "text": "1: Yes, 2: No, 3: Yes" }
+    ],
+    "correctOptionIds": ["A"],
+    "explanation": "Dataflows are supported. Data in semantic models is NOT deployed (metadata only). Refresh policies are generally not deployed/overwritten to allow different schedules per stage.",
+    "domain": "Maintain"
+  },
+  {
+    "id": 32,
+    "text": "You need to execute a stored procedure in a warehouse via Data Factory and use the returned values in downstream activities. Which activity should you use?",
+    "options": [
+      { "id": "A", "text": "Get Metadata" },
+      { "id": "B", "text": "Switch" },
+      { "id": "C", "text": "Lookup" },
+      { "id": "D", "text": "Append Variable" }
+    ],
+    "correctOptionIds": ["C"],
+    "explanation": "The Lookup activity is designed to retrieve a dataset (or singleton result) from a data source, including executing a stored proc and capturing its output.",
+    "domain": "Prepare"
+  },
+  {
+    "id": 33,
+    "text": "You need to modify Object-Level Security (OLS) for a semantic model. What tool should you use?",
+    "options": [
+      { "id": "A", "text": "Fabric Service" },
+      { "id": "B", "text": "Power BI Desktop" },
+      { "id": "C", "text": "ALM Toolkit" },
+      { "id": "D", "text": "Tabular Editor" }
+    ],
+    "correctOptionIds": ["D"],
+    "explanation": "Tabular Editor is the primary tool for configuring advanced modeling features like OLS, which are not fully exposed in PBI Desktop or the Service UI.",
+    "domain": "Model"
+  },
+  {
+    "id": 34,
+    "text": "You need to modify the value of a parameter 'Date1' when changes are deployed to the Test stage in a pipeline. Which two settings should you use?",
+    "options": [
+      { "id": "A", "text": "Deployment pipeline settings & Deployment rules" },
+      { "id": "B", "text": "Workspace settings & Parameter rules" },
+      { "id": "C", "text": "Capacity settings & Pipeline rules" },
+      { "id": "D", "text": "Dataflow settings & Refresh rules" }
+    ],
+    "correctOptionIds": ["A"],
+    "explanation": "You assign the workspace in Pipeline Settings, then configure Deployment Rules on the specific artifact (Semantic Model) to change parameter values.",
+    "domain": "Maintain"
+  },
+  {
+    "id": 35,
+    "text": "User1 has 'Default permissions' for Warehouse DW1 (via Sharing). What can User1 do?",
+    "options": [
+      { "id": "A", "text": "Build reports using default dataset" },
+      { "id": "B", "text": "Read data from tables in DW1" },
+      { "id": "C", "text": "Connect via Azure SQL Analytics endpoint" },
+      { "id": "D", "text": "Read Parquet files" }
+    ],
+    "correctOptionIds": ["B"],
+    "explanation": "Sharing a warehouse with default options grants Read permission on the warehouse item, allowing the user to query tables via T-SQL.",
+    "domain": "Maintain"
+  },
+  {
+    "id": 36,
+    "text": "DBUser has 'Read all Apache Spark' checked, but 'Read all SQL' unchecked. \n1. Read data using: [OneLake endpoint / TDS endpoint] \n2. Query data using: [OneLake file explorer / SSMS]",
+    "options": [
+      { "id": "A", "text": "1: OneLake endpoint, 2: OneLake file explorer" },
+      { "id": "B", "text": "1: TDS endpoint, 2: SSMS" },
+      { "id": "C", "text": "1: TDS endpoint, 2: OneLake file explorer" },
+      { "id": "D", "text": "1: OneLake endpoint, 2: SSMS" }
+    ],
+    "correctOptionIds": ["A"],
+    "explanation": "Without SQL permissions, they cannot use the TDS (SQL) endpoint. 'Read all Spark' allows access to the underlying OneLake files, so they use the OneLake endpoint and explorer.",
+    "domain": "Maintain"
+  },
+  {
+    "id": 37,
+    "text": "Assign roles for Groups: \nG1: Write data, cannot add members. \nG2: Configure settings. \nG3: Write data, add members, cannot delete workspace. \nSelect correct mapping.",
+    "options": [
+      { "id": "A", "text": "G1: Contributor, G2: Admin, G3: Member" },
+      { "id": "B", "text": "G1: Member, G2: Contributor, G3: Admin" },
+      { "id": "C", "text": "G1: Viewer, G2: Admin, G3: Contributor" },
+      { "id": "D", "text": "G1: Contributor, G2: Member, G3: Admin" }
+    ],
+    "correctOptionIds": ["A"],
+    "explanation": "Contributor can write but not share/add members. Member can write and share/add members. Admin has full control (settings).",
+    "domain": "Maintain"
+  },
+  {
+    "id": 38,
+    "text": "Which syntax should you use in a notebook to access Productline1 data stored as a shortcut named 'ResearchProduct' in the 'Tables' section?",
+    "options": [
+      { "id": "A", "text": "spark.sql(\"SELECT * FROM Lakehouse1.ResearchProduct\")" },
+      { "id": "B", "text": "spark.read.format(\"delta\").load(\"Files/ResearchProduct\")" },
+      { "id": "C", "text": "spark.sql(\"SELECT * FROM Lakehouse1.productline1.ResearchProduct\")" },
+      { "id": "D", "text": "spark.read.format(\"delta\").load(\"Tables/productline1/ResearchProduct\")" }
+    ],
+    "correctOptionIds": ["A"],
+    "explanation": "Managed tables and Shortcuts in the Tables section are registered in the Metastore. You can query them using Spark SQL directly: `SELECT * FROM Lakehouse.Table`.",
+    "caseStudyRef": "Contoso",
+    "domain": "Prepare"
+  },
+  {
+    "id": 39,
+    "text": "Which syntax should you use in a notebook to access Research division data for Productline1 if you specifically need to load it using the DataFrame API from the Tables path?",
+    "options": [
+      { "id": "A", "text": "spark.read.format(\"delta\").load(\"Tables/ResearchProduct\")" },
+      { "id": "B", "text": "spark.read.format(\"delta\").load(\"Files/ResearchProduct\")" },
+      { "id": "C", "text": "external_table('Tables/ResearchProduct')" },
+      { "id": "D", "text": "spark.read.load(\"ResearchProduct\")" }
+    ],
+    "correctOptionIds": ["A"],
+    "explanation": "Using the DataFrame API, you access managed tables via the `Tables/` prefix path: `Tables/ResearchProduct`.",
+    "caseStudyRef": "Contoso",
+    "domain": "Prepare"
+  },
+  {
+    "id": 40,
+    "text": "You need to refresh the Orders table of the Online Sales department. The solution must meet the semantic model requirements (minimize rows added). What should you include?",
+    "options": [
+      { "id": "A", "text": "ADF pipeline, Stored Proc, retrieve MAX OrderID" },
+      { "id": "B", "text": "ADF pipeline, Stored Proc, retrieve MIN OrderID" },
+      { "id": "C", "text": "ADF pipeline, Dataflow, retrieve MIN OrderID" },
+      { "id": "D", "text": "ADF pipeline, Dataflow, retrieve MAX OrderID" }
+    ],
+    "correctOptionIds": ["D"],
+    "explanation": "Using a Dataflow (low-code preference) to retrieve the MAX OrderID allows for efficient incremental refresh logic (watermark) by filtering source data.",
+    "caseStudyRef": "Contoso",
+    "domain": "Prepare"
+  },
+  {
+    "id": 41,
+    "text": "What should you recommend using to ingest the customer data (50 MB) into the data store in the AnalyticsPOC workspace? The solution must use low-code tools whenever possible.",
+    "options": [
+      { "id": "A", "text": "Stored procedure" },
+      { "id": "B", "text": "Pipeline with KQL activity" },
+      { "id": "C", "text": "Spark notebook" },
+      { "id": "D", "text": "Dataflow" }
+    ],
+    "correctOptionIds": ["D"],
+    "explanation": "Dataflows are the primary low-code ingestion tool in Fabric/Power BI for this data size.",
+    "caseStudyRef": "Litware",
+    "domain": "Prepare"
+  },
+  {
+    "id": 42,
+    "text": "You need to recommend a solution to prepare the tenant for the PoC. Which two actions should you recommend performing from the Fabric Admin portal?",
+    "options": [
+      { "id": "A", "text": "Enable 'Users can try Microsoft Fabric paid features' for specific security groups" },
+      { "id": "B", "text": "Enable 'Users can create Fabric items' for specific security groups" },
+      { "id": "C", "text": "Enable 'Allow Azure Active Directory guest users'" },
+      { "id": "D", "text": "Enable 'Users can try Microsoft Fabric paid features' for entire organization" }
+    ],
+    "correctOptionIds": ["A", "B"],
+    "explanation": "Enabling paid features for specific groups and item creation for specific groups ensures a controlled PoC environment as per requirements.",
+    "caseStudyRef": "Litware",
+    "domain": "Maintain"
+  },
+  {
+    "id": 43,
+    "text": "You need to implement the date dimension in the data store. There is no existing source. Low-code requirement. Which two ways?",
+    "options": [
+      { "id": "A", "text": "Dataflow" },
+      { "id": "B", "text": "Copy activity" },
+      { "id": "C", "text": "T-SQL View" },
+      { "id": "D", "text": "Stored Procedure" }
+    ],
+    "correctOptionIds": ["A", "C"],
+    "explanation": "Dataflows can generate date tables (Power Query). T-SQL can generate date views dynamically. Both meet the requirement to create the dimension without an external source.",
+    "caseStudyRef": "Litware",
+    "domain": "Model"
+  },
+  {
+    "id": 44,
+    "text": "You need to ensure the data loading activities in the AnalyticsPOC workspace are executed in the appropriate sequence (Raw -> Cleansed -> Dimensional). What should you do?",
+    "options": [
+      { "id": "A", "text": "Dataflow with multiple steps" },
+      { "id": "B", "text": "Spark notebook" },
+      { "id": "C", "text": "Spark job definition" },
+      { "id": "D", "text": "Pipeline with dependencies" }
+    ],
+    "correctOptionIds": ["D"],
+    "explanation": "Pipelines are the orchestration tool for sequencing activities.",
+    "caseStudyRef": "Litware",
+    "domain": "Prepare"
+  },
+  {
+    "id": 45,
+    "text": "You have a Fabric tenant that contains a machine learning model registered in a Fabric workspace. You need to use the model to generate predictions by using the PREDICT function in a Fabric notebook. Which two languages can you use?",
+    "options": [
+      { "id": "A", "text": "T-SQL" },
+      { "id": "B", "text": "DAX" },
+      { "id": "C", "text": "Spark SQL" },
+      { "id": "D", "text": "PySpark" }
+    ],
+    "correctOptionIds": ["C", "D"],
+    "explanation": "In a Notebook context, you use PySpark (mlflow or synapse.ml) or Spark SQL to invoke PREDICT.",
+    "domain": "Analyze"
+  },
+  {
+    "id": 46,
+    "text": "You are building a dataflow combining data from two lakehouses. Steps: Source -> Navigation -> Capitalized -> Appended -> Added custom. 1. Folding? 2. Custom step engine?",
+    "options": [
+      { "id": "A", "text": "Folding: All, Engine: Source" },
+      { "id": "B", "text": "Folding: Some, Engine: Power Query" },
+      { "id": "C", "text": "Folding: None, Engine: Power Query" },
+      { "id": "D", "text": "Folding: Some, Engine: Source" }
+    ],
+    "correctOptionIds": ["B"],
+    "explanation": "Complex steps like 'Added custom' typically break folding, forcing the Power Query engine to process.",
+    "domain": "Prepare"
+  },
+  {
+    "id": 47,
+    "text": "Creating a pipeline to copy external data to Table1. Schema changes regularly. Need to replace Table1 schema and rows. What to do?",
+    "options": [
+      { "id": "A", "text": "Destination: Overwrite" },
+      { "id": "B", "text": "Source: Add columns" },
+      { "id": "C", "text": "Settings: Enable staging" },
+      { "id": "D", "text": "Source: Partition discovery" }
+    ],
+    "correctOptionIds": ["A"],
+    "explanation": "Overwrite mode in Copy Activity for Lakehouse Tables handles schema replacement/evolution if supported or simply drops/recreates/overwrites the data files.",
+    "domain": "Prepare"
+  },
+  {
+    "id": 48,
+    "text": "Query sales data files (Amazon S3) using SQL endpoint. Recommend file format and shortcut location.",
+    "options": [
+      { "id": "A", "text": "Tables section, delta format" },
+      { "id": "B", "text": "Files section, Parquet format" },
+      { "id": "C", "text": "Tables section, CSV format" },
+      { "id": "D", "text": "Files section, delta format" }
+    ],
+    "correctOptionIds": ["A"],
+    "explanation": "SQL Endpoint works best (and often only for full features) with Delta tables recognized in the Tables section (via Shortcut).",
+    "domain": "Prepare"
+  },
+  {
+    "id": 49,
+    "text": "Lakehouse subfolder contains CSV files. Convert to delta with V-Order. What feature?",
+    "options": [
+      { "id": "A", "text": "Load to Tables" },
+      { "id": "B", "text": "Shortcut in Files" },
+      { "id": "C", "text": "Shortcut in Tables" },
+      { "id": "D", "text": "Optimize feature" }
+    ],
+    "correctOptionIds": ["A"],
+    "explanation": "'Load to Tables' is a UI feature to convert/load files into a managed Delta table.",
+    "domain": "Prepare"
+  },
+  {
+    "id": 50,
+    "text": "Lakehouse1 contains unpartitioned Table1. Plan to copy data and partition based on date. Need to specify partition column. What first?",
+    "options": [
+      { "id": "A", "text": "Destination: Mode Overwrite" },
+      { "id": "B", "text": "Destination: Mode Append" },
+      { "id": "C", "text": "Source: Partition discovery" },
+      { "id": "D", "text": "Destination: Select partition column" }
+    ],
+    "correctOptionIds": ["A"],
+    "explanation": "You can only define partitioning on a table when creating/overwriting it, not appending to an unpartitioned one.",
+    "domain": "Prepare"
+  },
+  {
+    "id": 51,
+    "text": "Solution to populate data store. Requirements: Support dataflows, Delta V-Order optimized automatically. Which two stores?",
+    "options": [
+      { "id": "A", "text": "Lakehouse" },
+      { "id": "B", "text": "Azure SQL DB" },
+      { "id": "C", "text": "Warehouse" },
+      { "id": "D", "text": "KQL Database" }
+    ],
+    "correctOptionIds": ["A", "C"],
+    "explanation": "Both Lakehouse and Warehouse in Fabric support Delta format and V-Order optimization.",
+    "domain": "Maintain"
+  },
+  {
+    "id": 52,
+    "text": "Fabric notebook saving large DataFrame: `df.write.partitionBy('year'...).parquet(...)`. True/False: Hierarchy? Parallel read? Compression?",
+    "options": [
+      { "id": "A", "text": "No, No, No" },
+      { "id": "B", "text": "Yes, Yes, Yes" },
+      { "id": "C", "text": "Yes, No, Yes" },
+      { "id": "D", "text": "No, Yes, Yes" }
+    ],
+    "correctOptionIds": ["B"],
+    "explanation": "Partitioning creates a folder hierarchy, enables parallel reads by engines, and Parquet is compressed by default (Snappy).",
+    "domain": "Prepare"
+  },
+  {
+    "id": 53,
+    "text": "Pipeline runs every four hours on Mondays and Fridays. Schedule Repeat setting?",
+    "options": [
+      { "id": "A", "text": "Daily" },
+      { "id": "B", "text": "Minute" },
+      { "id": "C", "text": "Weekly" },
+      { "id": "D", "text": "Hourly" }
+    ],
+    "correctOptionIds": ["C"],
+    "explanation": "To pick specific days (Mon/Fri), you choose Weekly frequency.",
+    "domain": "Maintain"
+  },
+  {
+    "id": 54,
+    "text": "Dataflow T-SQL native query folding. Complete code: `[Value]. [Dropdown] (Database, Query, null, [ [EnableFolding] = true])`",
+    "options": [
+      { "id": "A", "text": "NativeQuery" },
+      { "id": "B", "text": "RunSQL" },
+      { "id": "C", "text": "Execute" },
+      { "id": "D", "text": "Select" }
+    ],
+    "correctOptionIds": ["A"],
+    "explanation": "`Value.NativeQuery` is the Power Query M function to execute a raw SQL query against a source.",
+    "domain": "Prepare"
+  },
+  {
+    "id": 55,
+    "text": "Spark DataFrame transformation. Add `pickupDate` (cast from pickupDateTime), Filter `fareAmount`. Code completion.",
+    "options": [
+      { "id": "A", "text": "withColumn, cast, filter" },
+      { "id": "B", "text": "select, alias, where" },
+      { "id": "C", "text": "withColumnsRenamed, getfield, filter" },
+      { "id": "D", "text": "withColumn, date, where" }
+    ],
+    "correctOptionIds": ["A"],
+    "explanation": "`withColumn` adds a column, `cast('date')` converts the type, and `filter` applies the condition.",
+    "domain": "Prepare"
+  },
+  {
+    "id": 56,
+    "text": "OneLake security least privilege. User1: Read Spark. User2: Read SQL endpoint.",
+    "options": [
+      { "id": "A", "text": "User1: ReadAll, User2: ReadData" },
+      { "id": "B", "text": "User1: Read, User2: ReadAll" },
+      { "id": "C", "text": "User1: ReadData, User2: ReadAll" },
+      { "id": "D", "text": "User1: Contributor, User2: Viewer" }
+    ],
+    "correctOptionIds": ["A"],
+    "explanation": "ReadAll is typically required for Spark to access files (OneLake data access roles). ReadData implies SQL permission.",
+    "domain": "Maintain"
+  },
+  {
+    "id": 57,
+    "text": "Medallion architecture orchestration. Bronze: Pipeline Copy. Silver: Dataflows. Gold: Stored Procs. Map activities.",
+    "options": [
+      { "id": "A", "text": "Orch: Schedule, Bronze: Invoke Pipeline, Silver: Dataflow, Gold: Stored Proc" },
+      { "id": "B", "text": "Orch: Trigger, Bronze: Copy, Silver: Script, Gold: Lookup" },
+      { "id": "C", "text": "Orch: Schedule, Bronze: Copy, Silver: Notebook, Gold: Stored Proc" },
+      { "id": "D", "text": "Orch: Manual, Bronze: Dataflow, Silver: Dataflow, Gold: Script" }
+    ],
+    "correctOptionIds": ["A"],
+    "explanation": "Orchestration uses a scheduled pipeline. Bronze uses 'Invoke Pipeline' if existing pipeline logic is used, or Copy Activity directly. Silver uses Dataflow activity. Gold uses Stored Procedure activity.",
+    "domain": "Prepare"
+  },
+  {
+    "id": 58,
+    "text": "Change string column 'Age' to int. Return all columns.",
+    "options": [
+      { "id": "A", "text": "withColumn, col, cast" },
+      { "id": "B", "text": "select, col, int" },
+      { "id": "C", "text": "withColumn, get, int" },
+      { "id": "D", "text": "transform, col, integer" }
+    ],
+    "correctOptionIds": ["A"],
+    "explanation": "`withColumn` replaces or adds a column while keeping others (if name matches). `col('age').cast('int')` performs the type conversion.",
+    "domain": "Prepare"
+  },
+  {
+    "id": 59,
+    "text": "Load Parquet to default lakehouse as table named Sales.",
+    "options": [
+      { "id": "A", "text": "Format: delta, Table: sales" },
+      { "id": "B", "text": "Format: parquet, Table: sales" },
+      { "id": "C", "text": "Format: delta, Table: files/sales" },
+      { "id": "D", "text": "Format: csv, Table: sales" }
+    ],
+    "correctOptionIds": ["A"],
+    "explanation": "Managed tables are Delta by default/preference in Fabric. The `saveAsTable` usually implies a managed table.",
+    "domain": "Prepare"
+  },
+  {
+    "id": 60,
+    "text": "Pipeline activity to copy CSV to Lakehouse supporting Power Query M.",
+    "options": [
+      { "id": "A", "text": "Dataflow" },
+      { "id": "B", "text": "Notebook" },
+      { "id": "C", "text": "Copy data" },
+      { "id": "D", "text": "Script" }
+    ],
+    "correctOptionIds": ["A"],
+    "explanation": "Dataflow (Gen2) uses Power Query M for transformations.",
+    "domain": "Prepare"
+  },
+  {
+    "id": 61,
+    "text": "Append data with new columns (Schema evolution). Keep existing rows.",
+    "options": [
+      { "id": "A", "text": "Mode: append, Option: mergeSchema=true" },
+      { "id": "B", "text": "Mode: overwrite, Option: mergeSchema=true" },
+      { "id": "C", "text": "Mode: append, Option: overwriteSchema=true" },
+      { "id": "D", "text": "Mode: ignore, Option: mergeSchema=true" }
+    ],
+    "correctOptionIds": ["A"],
+    "explanation": "Mode `append` adds rows. `mergeSchema=true` allows the schema to evolve (add columns) without error.",
+    "domain": "Prepare"
+  },
+  {
+    "id": 62,
+    "text": "Visual query merge two tables. Return all rows in both.",
+    "options": [
+      { "id": "A", "text": "Full outer" },
+      { "id": "B", "text": "Inner" },
+      { "id": "C", "text": "Left outer" },
+      { "id": "D", "text": "Right anti" }
+    ],
+    "correctOptionIds": ["A"],
+    "explanation": "Full Outer join returns all rows from both left and right tables, matching where possible and filling NULLs where not.",
+    "domain": "Prepare"
+  },
+  {
+    "id": 63,
+    "text": "SCD. Customers: New version. Products: Overwrite.",
+    "options": [
+      { "id": "A", "text": "Cust: Type 2, Prod: Type 1" },
+      { "id": "B", "text": "Cust: Type 1, Prod: Type 2" },
+      { "id": "C", "text": "Cust: Type 0, Prod: Type 1" },
+      { "id": "D", "text": "Cust: Type 2, Prod: Type 0" }
+    ],
+    "correctOptionIds": ["A"],
+    "explanation": "Type 2 creates history (new rows). Type 1 overwrites the existing record.",
+    "domain": "Model"
+  },
+  {
+    "id": 64,
+    "text": "You need to create a DAX measure to calculate the average overall satisfaction score. Complete the code: `CALCULATE([Dropdown1], [Dropdown2], [Dropdown3])`",
+    "codeSnippet": "Rolling 12 Overall Satisfaction = \nVAR Period = DATESINPERIOD('Date'[Date], LastCurrentDate, -12, MONTH)\nRETURN CALCULATE(...)",
+    "options": [
+      { "id": "A", "text": "1: AVERAGE('Survey'[Response]), 2: Period, 3: 'Question'[Title]=\"Overall Satisfaction\"" },
+      { "id": "B", "text": "1: SUM('Survey'[Response]), 2: Period, 3: FILTER(Question)" },
+      { "id": "C", "text": "1: AVERAGE('Survey'[Response]), 2: ALL(Date), 3: Period" },
+      { "id": "D", "text": "1: MAX('Survey'[Response]), 2: Period, 3: ALLSELECTED(Question)" }
+    ],
+    "correctOptionIds": ["A"],
+    "explanation": "Calculate average of response values, filtered by the 12-month period and the specific question title.",
+    "caseStudyRef": "Litware",
+    "domain": "Model"
+  },
+  {
+    "id": 65,
+    "text": "Which type of data store should you recommend in the AnalyticsPOC workspace? (Requirements: Support semi-structured/unstructured data, Python, and T-SQL).",
+    "options": [
+      { "id": "A", "text": "Data lake" },
+      { "id": "B", "text": "Warehouse" },
+      { "id": "C", "text": "Lakehouse" },
+      { "id": "D", "text": "External Hive metaStore" }
+    ],
+    "correctOptionIds": ["C"],
+    "explanation": "A Lakehouse is optimized for Spark (Python) and SQL access, supporting semi-structured data better than a rigid Warehouse.",
+    "caseStudyRef": "Litware",
+    "domain": "Prepare"
+  },
+  {
+    "id": 66,
+    "text": "You need to design a semantic model for the customer satisfaction report. Which data source authentication method and mode should you use?",
+    "options": [
+      { "id": "A", "text": "Auth: SSO, Mode: DirectQuery" },
+      { "id": "B", "text": "Auth: Basic, Mode: Import" },
+      { "id": "C", "text": "Auth: Service Principal, Mode: Direct Lake" },
+      { "id": "D", "text": "Auth: Key, Mode: Dual" }
+    ],
+    "correctOptionIds": ["A"],
+    "explanation": "SSO ensures row-level security is respected at the source. DirectQuery allows real-time data access as per requirements.",
+    "caseStudyRef": "Litware",
+    "domain": "Model"
+  },
+  {
+    "id": 67,
+    "text": "You need to write a T-SQL query that will return data for the year 2023 that displays ProductID and ProductName and has a summarized Amount that is higher than 10,000.",
+    "options": [
+      { "id": "A", "text": "HAVING SUM(Amount) > 10000" },
+      { "id": "B", "text": "WHERE SUM(Amount) > 10000" },
+      { "id": "C", "text": "HAVING Amount > 10000" },
+      { "id": "D", "text": "WHERE TotalAmount > 10000" }
+    ],
+    "correctOptionIds": ["A"],
+    "explanation": "Filtering on aggregated data (SUM) must be done in the HAVING clause, not the WHERE clause.",
+    "domain": "Analyze"
+  },
+  {
+    "id": 68,
+    "text": "What should you use to implement calculation groups for the Research division semantic models? (Context: Requirement for version control/branching using .pbip).",
+    "options": [
+      { "id": "A", "text": "DAX Studio" },
+      { "id": "B", "text": "Microsoft Power BI Desktop" },
+      { "id": "C", "text": "The Power BI service" },
+      { "id": "D", "text": "Tabular Editor" }
+    ],
+    "correctOptionIds": ["B"],
+    "explanation": "Power BI Desktop now supports native Model Explorer authoring for Calculation Groups, compatible with PBIP version control.",
+    "caseStudyRef": "Contoso",
+    "domain": "Model"
+  },
+  {
+    "id": 69,
+    "text": "You have a data warehouse... table Stage.Customers... return the most recent row for each customer ID using T-SQL.",
+    "options": [
+      { "id": "A", "text": "ROW_NUMBER() OVER (PARTITION BY CustomerID ORDER BY LastUpdated DESC) ... WHERE X = 1" },
+      { "id": "B", "text": "RANK() OVER (ORDER BY LastUpdated) ... WHERE X = 1" },
+      { "id": "C", "text": "GROUP BY CustomerID HAVING MAX(LastUpdated)" },
+      { "id": "D", "text": "NTILE(1) OVER (PARTITION BY CustomerID)" }
+    ],
+    "correctOptionIds": ["A"],
+    "explanation": "ROW_NUMBER partitioned by ID and ordered by Date DESC assigns 1 to the most recent record.",
+    "domain": "Analyze"
+  },
+  {
+    "id": 70,
+    "text": "You have a Fabric tenant that contains a Microsoft Power BI report named Report1. Report1 includes a Python visual. Data displayed by the visual is grouped automatically and duplicate rows are NOT displayed. You need all rows to appear in the visual. What should you do?",
+    "options": [
+      { "id": "A", "text": "Reference the columns in the Python code by index." },
+      { "id": "B", "text": "Modify the Sort Column By property for all columns." },
+      { "id": "C", "text": "Add a unique field to each row." },
+      { "id": "D", "text": "Modify the Summarize By property for all columns." }
+    ],
+    "correctOptionIds": ["C"],
+    "explanation": "Power BI automatically aggregates data sent to Python visuals. Adding a unique index/ID column forces every row to be treated as distinct.",
+    "domain": "Analyze"
+  },
+  {
+    "id": 71,
+    "text": "You have a Fabric tenant that contains a semantic model. You need to write a DAX query that will be executed by using the XMLA endpoint. The query must return a table of stores.",
+    "options": [
+      { "id": "A", "text": "DEFINE, EVALUATE, SUMMARIZE" },
+      { "id": "B", "text": "SELECT, FROM, GROUP BY" },
+      { "id": "C", "text": "MEASURE, RETURN, CALCULATE" },
+      { "id": "D", "text": "EVALUATE, FILTER, SELECTCOLUMNS" }
+    ],
+    "correctOptionIds": ["A"],
+    "explanation": "A complete DAX query usually starts with DEFINE (optional variables/measures) and must have EVALUATE to return a table result.",
+    "domain": "Analyze"
+  },
+  {
+    "id": 72,
+    "text": "You have a Fabric workspace that contains a dataflow. You view the query in Power Query. Total rows = 1000. Distinct count = 935. Unique count = 877. What can you identify?",
+    "options": [
+      { "id": "A", "text": "The column has duplicate values." },
+      { "id": "B", "text": "All the table rows are profiled." },
+      { "id": "C", "text": "The column has missing values." },
+      { "id": "D", "text": "There are 935 values that occur only once." }
+    ],
+    "correctOptionIds": ["A"],
+    "explanation": "Since distinct count (935) < total rows (1000), there are duplicates.",
+    "domain": "Prepare"
+  },
+  {
+    "id": 73,
+    "text": "You need to recommend a solution to provide users with the ability to create and publish custom Direct Lake semantic models by using external tools. The solution must follow the principle of least privilege. Select THREE actions.",
+    "options": [
+      { "id": "A", "text": "Tenant: Allow XMLA Endpoints" },
+      { "id": "B", "text": "Capacity: XMLA Endpoint Read Write" },
+      { "id": "C", "text": "Tenant: Users can create Fabric items" },
+      { "id": "D", "text": "Tenant: Allow Guest Users" },
+      { "id": "E", "text": "Tenant: Publish to Web" }
+    ],
+    "correctOptionIds": ["A", "B", "C"],
+    "explanation": "XMLA Read/Write is required for external tools. Users also need permission to create Fabric items to deploy the model.",
+    "domain": "Maintain"
+  },
+  {
+    "id": 74,
+    "text": "You are creating a semantic model in Power BI Desktop. You plan to make bulk changes to the model by using the TMDL extension for Visual Studio Code. Which file format should you use?",
+    "options": [
+      { "id": "A", "text": "PBIP" },
+      { "id": "B", "text": "PBIX" },
+      { "id": "C", "text": "PBIT" },
+      { "id": "D", "text": "PBIDS" }
+    ],
+    "correctOptionIds": ["A"],
+    "explanation": "PBIP (Power BI Project) exposes the model definition as TMDL (Tabular Model Definition Language) files which can be edited in VS Code.",
+    "domain": "Model"
+  },
+  {
+    "id": 75,
+    "text": "You have a Fabric tenant with 30 CSV files in OneLake. You create a semantic model using the CSVs as a source and configure incremental refresh. The refresh fails after running out of resources. What is a possible cause?",
+    "options": [
+      { "id": "A", "text": "Query folding is occurring." },
+      { "id": "B", "text": "Only refresh complete days is selected." },
+      { "id": "C", "text": "XMLA Endpoint is set to Read Only." },
+      { "id": "D", "text": "Query folding is NOT occurring." }
+    ],
+    "correctOptionIds": ["D"],
+    "explanation": "CSV files do not support query folding (server-side filtering). The engine pulls all data before filtering, exhausting memory during incremental refresh attempts.",
+    "domain": "Model"
+  },
+  {
+    "id": 76,
+    "text": "You have a Fabric tenant that uses a Power BI Premium capacity. You need to enable scale-out for a semantic model. What should you do first?",
+    "options": [
+      { "id": "A", "text": "At the semantic model level, set Large dataset storage format to Off." },
+      { "id": "B", "text": "At the tenant level, set Create and use Metrics to Enabled." },
+      { "id": "C", "text": "At the semantic model level, set Large dataset storage format to On." },
+      { "id": "D", "text": "At the tenant level, set Data Activator to Enabled." }
+    ],
+    "correctOptionIds": ["C"],
+    "explanation": "Scale-out (using more memory/nodes) generally requires the dataset to be configured for 'Large dataset storage format'.",
+    "domain": "Model"
+  },
+  {
+    "id": 77,
+    "text": "You have a Fabric tenant that contains a warehouse. The warehouse uses row-level security (RLS). You create a Direct Lake semantic model that uses the Delta tables and RLS of the warehouse. When users interact with a report, which mode will be used?",
+    "options": [
+      { "id": "A", "text": "DirectQuery" },
+      { "id": "B", "text": "Dual" },
+      { "id": "C", "text": "Direct Lake" },
+      { "id": "D", "text": "Import" }
+    ],
+    "correctOptionIds": ["A"],
+    "explanation": "When RLS is defined at the Warehouse (SQL endpoint) level, Direct Lake often falls back to DirectQuery to ensure the security logic is executed by the SQL engine, though this behavior is evolving.",
+    "domain": "Model"
+  },
+  {
+    "id": 78,
+    "text": "You have a Fabric tenant that contains a complex semantic model. The model is based on a star schema and contains many tables. You need to create a diagram of the model containing only the Sales table and related tables. What should you use from Microsoft Power BI Desktop?",
+    "options": [
+      { "id": "A", "text": "Data categories" },
+      { "id": "B", "text": "Data view" },
+      { "id": "C", "text": "Model view" },
+      { "id": "D", "text": "DAX query view" }
+    ],
+    "correctOptionIds": ["C"],
+    "explanation": "Model View allows you to create specific diagrams (layouts) showing only a subset of tables.",
+    "domain": "Model"
+  },
+  {
+    "id": 79,
+    "text": "You have a Fabric tenant that contains a semantic model. The model uses Direct Lake mode. You need to identify the frequently used columns that are loaded into memory. What are two ways to achieve the goal?",
+    "options": [
+      { "id": "A", "text": "Vertipaq Analyzer tool, $system.discovered_STORAGE_TABLE_COLUMN_IN_SEGMENTS DMV" },
+      { "id": "B", "text": "Analyze in Excel, Performance Analyzer" },
+      { "id": "C", "text": "DAX Studio, View Dependencies" },
+      { "id": "D", "text": "SQL Profiler, $system.TMSCHEMA_PARTITIONS" }
+    ],
+    "correctOptionIds": ["A"],
+    "explanation": "Vertipaq Analyzer helps visualize memory consumption. The DMV `$system.discovered_STORAGE_TABLE_COLUMN_IN_SEGMENTS` specifically shows which columns are paged into memory in Direct Lake.",
+    "domain": "Model"
+  },
+  {
+    "id": 80,
+    "text": "You have a source data model with tables: Date, Product, Company, Customer, OrderItem. Product and Company have composite keys (CompanyID, ProductID). You need to create a dimensional data model. What should you include in the solution?",
+    "options": [
+      { "id": "A", "text": "Rel: Combine CompanyID & ProductID. Company: Denormalized into Customer and Product." },
+      { "id": "B", "text": "Rel: ProductID column. Company: Omitted." },
+      { "id": "C", "text": "Rel: Combine keys. Company: Kept separate." },
+      { "id": "D", "text": "Rel: CompanyID column. Company: Denormalized into Product only." }
+    ],
+    "correctOptionIds": ["A"],
+    "explanation": "To handle composite keys in a standard Star Schema, create a surrogate key or combined key. Small dimensions like Company can be denormalized (snowflaking avoided).",
+    "domain": "Model"
+  },
+  {
+    "id": 81,
+    "text": "You have a semantic model (Import mode, 100 million rows). Table Orders has: OrderId, OrderDateTime, Quantity, Price, TotalSalesAmount (Calculated Column), TotalQuantity (Measure). You need to reduce memory usage. Which two actions should you perform?",
+    "options": [
+      { "id": "A", "text": "Split OrderDateTime, Replace TotalSalesAmount with measure" },
+      { "id": "B", "text": "Convert Quantity to Text, Replace TotalQuantity with calc column" },
+      { "id": "C", "text": "Split OrderDateTime, Keep TotalSalesAmount" },
+      { "id": "D", "text": "Delete OrderId, Replace TotalQuantity with calc column" }
+    ],
+    "correctOptionIds": ["A"],
+    "explanation": "High cardinality columns (DateTime) take lots of memory; splitting reduces cardinality. Calculated columns store data; measures are calculated on fly (CPU), saving memory.",
+    "domain": "Model"
+  },
+  {
+    "id": 82,
+    "text": "You need to prevent report creators from populating visuals by using implicit measures. What are two tools that you can use to achieve the goal?",
+    "options": [
+      { "id": "A", "text": "Microsoft Power BI Desktop, Tabular Editor" },
+      { "id": "B", "text": "SSMS, DAX Studio" },
+      { "id": "C", "text": "Power BI Service, Excel" },
+      { "id": "D", "text": "Fabric Admin Portal, Capacity Metrics" }
+    ],
+    "correctOptionIds": ["A"],
+    "explanation": "You can disable 'Discourage Implicit Measures' property in the model using Tabular Editor or newer Power BI Desktop model settings.",
+    "domain": "Model"
+  }
+]
