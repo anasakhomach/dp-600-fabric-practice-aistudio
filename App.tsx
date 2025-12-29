@@ -243,8 +243,8 @@ const App: React.FC = () => {
       {/* Enhanced Navbar */}
       <nav className="flex-shrink-0 bg-white/80 backdrop-blur-md border-b border-slate-200 h-16 flex items-center justify-between px-4 md:px-8 z-20 sticky top-0">
         <div className="flex items-center gap-3">
-          <button onClick={() => setHasStarted(false)} className="w-10 h-10 bg-gradient-to-br from-fabric-500 to-fabric-600 rounded-xl flex items-center justify-center text-white font-bold shadow-lg shadow-fabric-200 hover:scale-105 transition-transform">
-            DP
+          <button onClick={() => setHasStarted(false)} className="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg shadow-fabric-200 hover:scale-105 transition-transform overflow-hidden">
+            <img src={`${import.meta.env.BASE_URL}fabric-logo.png`} alt="Fabric Logo" className="w-full h-full object-cover" />
           </button>
           <div className="hidden md:block">
             <h1 className="text-lg font-bold text-slate-800 leading-tight">
