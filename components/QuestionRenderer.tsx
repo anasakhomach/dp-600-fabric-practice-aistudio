@@ -91,6 +91,11 @@ const QuestionRenderer: React.FC<Props> = (props) => {
           existingAnswer={props.existingAnswer}
           onAnswer={props.onAnswer}
           onNext={props.onNext}
+          questionIndex={props.questionIndex}
+          totalQuestions={props.totalQuestions}
+          score={props.score}
+          isBookmarked={props.isBookmarked}
+          onBookmarkToggle={props.onBookmarkToggle}
         />
       );
 

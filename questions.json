@@ -63,5 +63,290 @@
     "detailedExplanation": "## Learning Material\n\n### The Watermark Pattern\nTo minimize rows added, identify the 'high-water mark' (MAX OrderID in destination), then only load records greater than that value.\n\n### Why Dataflow over Stored Procedure?\n| Feature | Stored Procedure | Dataflow |\n|---------|------------------|----------|\n| Logic | Correct (MAX) | Correct (MAX) |\n| Skill Level | High (T-SQL) | Low-code |\n| Maintenance | Higher | Lower |\n| Requirement Fit | Minimize Rows ✅ | Minimize Rows + Minimize Effort ✅✅ |\n\n### Decision Framework\n- **Minimize rows added?** → Use MAX(ID) or Latest Date\n- **Minimize maintenance?** → Use low-code tools (Dataflows)\n- **Highest Performance?** → Use Stored Procedures or Spark\n\n### Analogy\nImagine adding books to a shelf. Option A builds a robot to check the last barcode—fast but needs an engineer to fix. Option D gives a student a simple checklist (low-code)—easier to maintain.\n\n### Further Reading\n- [Incremental refresh in Fabric](https://learn.microsoft.com/en-us/fabric/data-engineering/lakehouse-incremental-refresh)\n- [Watermark pattern in Data Factory](https://learn.microsoft.com/en-us/azure/data-factory/tutorial-incremental-copy-portal)",
     "domain": "Prepare",
     "caseStudyRef": "Contoso"
+  },
+  {
+    "id": 4,
+    "type": "MultipleChoice",
+    "text": "Which syntax should you use in a notebook to access the Research division data for Productline1?",
+    "options": [
+      { "id": "A", "text": "spark.read.format(\"delta\").load(\"Tables/productline1/ResearchProduct\")" },
+      { "id": "B", "text": "spark.sql(\"SELECT * FROM Lakehouse1.ResearchProduct\")" },
+      { "id": "C", "text": "external_table('Tables/ResearchProduct')" },
+      { "id": "D", "text": "external_table(ResearchProduct)" }
+    ],
+    "correctOptionIds": ["B"],
+    "explanation": "In a Fabric Notebook, when a lakehouse is attached, it acts as a schema/database. The standard way to query a managed table is via Spark SQL: spark.sql(\"SELECT * FROM DatabaseName.TableName\"). Options C and D use non-existent external_table syntax. Option A uses a path-based approach which doesn't treat data as a managed table.",
+    "detailedExplanation": "## Learning Material\n\n### Key Concepts\n- **Shortcuts in Tables folder:** Treated as Delta tables, discoverable by Spark and SQL Analytics Endpoint\n- **Lakehouse as Database:** In Spark, your Lakehouse name = Database/Schema name\n\n### When to Use Which Method\n| Method | Syntax | Use Case |\n|--------|--------|---------|\n| **Spark SQL** | `spark.sql(\"SELECT * FROM Lakehouse.Table\")` | Querying managed/shortcut tables |\n| **Spark API (Delta)** | `spark.read.format(\"delta\").load(\"Tables/Table\")` | Direct file system access |\n| **Spark API (Files)** | `spark.read.format(\"csv\").load(\"Files/File.csv\")` | Raw files |\n\n### Analogy\nYour **Lakehouse** is a **Library**, **Shortcuts** are **Books** on the shelf.\n- **Option B (Spark SQL):** Ask the librarian by book **Title** (table name) - fastest and most organized\n- **Option A (Path-based):** Find the book by **GPS coordinates** on the shelf - works but harder to maintain\n\n### Further Reading\n- [Explore data in lakehouse with notebook](https://learn.microsoft.com/en-us/fabric/data-engineering/lakehouse-notebook)\n- [OneLake shortcuts](https://learn.microsoft.com/en-us/fabric/onelake/onelake-shortcuts)",
+    "domain": "Analyze",
+    "caseStudyRef": "Contoso"
+  },
+  {
+    "id": 5,
+    "type": "Dropdown",
+    "text": "You need to configure additional permissions for the data store share to meet the security requirements.\n\nWhat should you configure?\n\n**NOTE:** Each correct selection is worth one point.",
+    "menus": [
+      {
+        "id": "data_engineers",
+        "label": "DataEngineers",
+        "options": [
+          { "id": "build", "text": "Build Reports on the default dataset" },
+          { "id": "spark", "text": "Read All Apache Spark" },
+          { "id": "sql", "text": "Read All SQL analytics endpoint data" }
+        ]
+      },
+      {
+        "id": "data_analysts",
+        "label": "DataAnalysts",
+        "options": [
+          { "id": "build", "text": "Build Reports on the default dataset" },
+          { "id": "spark", "text": "Read All Apache Spark" },
+          { "id": "sql", "text": "Read All SQL analytics endpoint data" }
+        ]
+      },
+      {
+        "id": "data_scientists",
+        "label": "DataScientists",
+        "options": [
+          { "id": "build", "text": "Build Reports on the default dataset" },
+          { "id": "spark", "text": "Read All Apache Spark" },
+          { "id": "sql", "text": "Read All SQL analytics endpoint data" }
+        ]
+      }
+    ],
+    "correctMapping": {
+      "data_engineers": "sql",
+      "data_analysts": "build",
+      "data_scientists": "spark"
+    },
+    "explanation": "DataEngineers need T-SQL access (Read All SQL) to validate data loads. DataAnalysts need Build permission on the semantic model to create reports. DataScientists need Spark access (Read All Apache Spark) for notebook-based workflows. This follows the principle of least privilege.",
+    "detailedExplanation": "## Learning Material\n\n### Access vs. Tool Mapping\n| Permission | Tool/Language | Role Example |\n|------------|--------------|-------------|\n| **Read All SQL** | T-SQL / SQL Editor | Data Engineer |\n| **Read All Apache Spark** | Python, Scala, Notebooks | Data Scientist |\n| **Build Reports** | Power BI Report Builder | Data Analyst |\n\n### The Principle of Least Privilege\nGrant minimum engine access for the user's tool:\n- Notebooks → Spark permission\n- SQL Management Studio → SQL permission\n- Report building only → Build permission on dataset\n\n### Analogy\nThe data store is a **high-security building**:\n- **SQL permission:** Keycard for the **front door** (structured entrance)\n- **Spark permission:** Keycard for the **service elevator** (raw materials access)\n- **Build permission:** **Guest pass** for the **observation deck** (reports only)\n\n### Further Reading\n- [Share Warehouse and manage permissions](https://learn.microsoft.com/en-us/fabric/data-warehouse/share-warehouse-manage-permissions)\n- [Data science roles in Fabric](https://learn.microsoft.com/en-us/fabric/data-science/data-science-roles-permissions)",
+    "domain": "Maintain",
+    "caseStudyRef": "Litware"
+  },
+  {
+    "id": 6,
+    "type": "Dropdown",
+    "text": "You need to create a DAX measure to calculate the average overall satisfaction score.\n\nHow should you complete the DAX code?\n\n**NOTE:** Each correct selection is worth one point.\n\n```dax\nRolling 12 Overall Satisfaction =\nVAR NumberOfMonths = 12\nVAR LastCurrentDate = MAX('Date'[Date])\nVAR Period = DATESINPERIOD('Date'[Date], LastCurrentDate, -NumberOfMonths, MONTH)\nVAR Result = CALCULATE(\n    [Dropdown 1],\n    [Dropdown 2],\n    'Survey Question'[Question Title] = \"Overall Satisfaction\"\n)\nRETURN Result\n```",
+    "menus": [
+      {
+        "id": "aggregation",
+        "label": "Dropdown 1 (Aggregation)",
+        "options": [
+          { "id": "average", "text": "AVERAGE('Survey'[Response Value])" },
+          { "id": "averagea", "text": "AVERAGEA('Question')" },
+          { "id": "averagex", "text": "AVERAGEX(VALUES('Survey'[Customer Key])," }
+        ]
+      },
+      {
+        "id": "filter",
+        "label": "Dropdown 2 (Filter Context)",
+        "options": [
+          { "id": "lastdate", "text": "LastCurrentDate," },
+          { "id": "number", "text": "NumberOfMonths," },
+          { "id": "period", "text": "Period," }
+        ]
+      }
+    ],
+    "correctMapping": {
+      "aggregation": "average",
+      "filter": "period"
+    },
+    "explanation": "AVERAGE('Survey'[Response Value]) is the standard aggregation for finding the mean of survey scores. The 'Period' variable (created by DATESINPERIOD) is a table of dates that must be passed to CALCULATE as a filter to create the rolling 12-month window. LastCurrentDate is a scalar (single date), not a filter range.",
+    "detailedExplanation": "## Learning Material\n\n### The Rolling Window Pattern in DAX\n1. **Get Anchor Date:** `MAX('Date'[Date])` finds the 'current' date\n2. **Define Window:** `DATESINPERIOD(Dates, StartDate, Number, Interval)` creates the date table\n3. **Apply via CALCULATE:** Pass the window table as the filter\n\n### Variable Types in CALCULATE\n| Type | Usage in CALCULATE | Example |\n|------|-------------------|---------|\n| **Scalar** (Single Value) | Comparisons (`Value > Var`) | `LastCurrentDate` |\n| **Table** (List of Values) | Filter context replacement | `Period` |\n\n### Analogy\nA **Rolling 12-Month Average** is like a **spotlight on a timeline**. Normally you only see one month. By using `DATESINPERIOD` + `CALCULATE`, you widen the beam to always show 12 months leading up to the selected date.\n\n### Further Reading\n- [DATESINPERIOD function](https://learn.microsoft.com/en-us/dax/datesinperiod-function-dax)\n- [Time intelligence in Power BI](https://learn.microsoft.com/en-us/training/modules/dax-power-bi-time-intelligence/)\n- [CALCULATE function](https://learn.microsoft.com/en-us/dax/calculate-function-dax)",
+    "domain": "Model",
+    "caseStudyRef": "Litware"
+  },
+  {
+    "id": 7,
+    "type": "Dropdown",
+    "text": "You need to resolve the issue with the pricing group classification.\n\nHow should you complete the T-SQL statement?\n\n**NOTE:** Each correct selection is worth one point.\n\n```sql\nCREATE [Dropdown 1] [dbo].[ProductsWithPricingGroup]\nAS\nSELECT ProductId,\n       ProductName,\n       ProductCategory,\n       ListPrice,\n       [Dropdown 2]\n       WHEN ListPrice <= 50 THEN 'low'\n       [Dropdown 3]\n       WHEN ListPrice > 1000 THEN 'high'\n       END AS PricingGroup\nFROM dbo.Products\n```",
+    "menus": [
+      {
+        "id": "object_type",
+        "label": "Dropdown 1 (Object Type)",
+        "options": [
+          { "id": "function", "text": "FUNCTION" },
+          { "id": "procedure", "text": "PROCEDURE" },
+          { "id": "table", "text": "TABLE" },
+          { "id": "view", "text": "VIEW" }
+        ]
+      },
+      {
+        "id": "conditional",
+        "label": "Dropdown 2 (Conditional Keyword)",
+        "options": [
+          { "id": "case", "text": "CASE" },
+          { "id": "coalesce", "text": "COALESCE" },
+          { "id": "iif", "text": "IIF" },
+          { "id": "set", "text": "SET" }
+        ]
+      },
+      {
+        "id": "medium_logic",
+        "label": "Dropdown 3 (Medium Logic)",
+        "options": [
+          { "id": "and_exclusive", "text": "WHEN (ListPrice > 50 AND ListPrice < 1000) THEN 'medium'" },
+          { "id": "and_inclusive", "text": "WHEN (ListPrice >= 50 AND ListPrice < 1000) THEN 'medium'" },
+          { "id": "between", "text": "WHEN ListPrice BETWEEN 50 AND 1000 THEN 'medium'" }
+        ]
+      }
+    ],
+    "correctMapping": {
+      "object_type": "view",
+      "conditional": "case",
+      "medium_logic": "between"
+    },
+    "explanation": "A VIEW encapsulates logic into a virtual table, allowing semantic models to consume it (they can only include tables/views). CASE is the standard T-SQL syntax for multi-conditional expressions. BETWEEN is inclusive and correctly captures prices from 50 to 1000 for the 'medium' group.",
+    "detailedExplanation": "## Learning Material\n\n### Why These Selections?\n\n| Goal | T-SQL Feature | Reason |\n|------|--------------|--------|\n| Centralize logic for Semantic Models | **VIEW** | Views are treated as tables by Power BI |\n| Multi-conditional logic | **CASE** | Maps ranges to labels (High/Med/Low) |\n| Inclusive Range (≤ 1000) | **BETWEEN** | Includes both start and end values |\n\n### Object Types in Fabric\n| Object | SQL Queryable? | In Semantic Model? | Use Case |\n|--------|---------------|--------------------|-----------|\n| **View** | Yes | **Yes** | Encapsulating logic |\n| **Stored Procedure** | Yes | No | Data processing |\n| **Table** | Yes | **Yes** | Physical storage |\n| **Function** | Yes | No | Specialized calcs |\n\n### Key T-SQL Logic\n- **CASE Expression:** Always ends with `END`\n- **BETWEEN:** Is **inclusive** (includes both bounds)\n- **Order of Operations:** First match wins\n\n### Analogy\nA **View** is like a **Smart Lens** over a spreadsheet. The table just has prices, but through the lens you see them labeled as 'High' or 'Low'. Change the lens in one place = everyone sees updated labels.\n\n### Further Reading\n- [CREATE VIEW (T-SQL)](https://learn.microsoft.com/en-us/sql/t-sql/statements/create-view-transact-sql)\n- [CASE expression](https://learn.microsoft.com/en-us/sql/t-sql/language-elements/case-transact-sql)",
+    "domain": "Prepare",
+    "caseStudyRef": "Litware"
+  },
+  {
+    "id": 8,
+    "type": "MultipleChoice",
+    "text": "What should you recommend using to ingest the customer data into the data store in the AnalyticsPOC workspace?",
+    "options": [
+      { "id": "A", "text": "A stored procedure" },
+      { "id": "B", "text": "A pipeline that contains a KQL activity" },
+      { "id": "C", "text": "A Spark notebook" },
+      { "id": "D", "text": "A dataflow" }
+    ],
+    "correctOptionIds": ["D"],
+    "explanation": "The case study states 'Whenever possible, data engineers will use low-code tools for data ingestion.' Dataflows are the primary low-code data integration tool. The customer data is 50MB from CRM - perfect for Dataflow. Stored procedures and Spark notebooks are pro-code solutions. KQL is for Real-Time Intelligence/streaming.",
+    "detailedExplanation": "## Learning Material\n\n### Low-Code Preference\nWhen case studies emphasize **low-code tools** or **minimizing maintenance effort**, **Dataflows (Gen2)** is the prioritized tool for ingestion.\n\n### Tool Selection Guide\n| Tool | Code Level | Best For |\n|------|-----------|----------|\n| **Dataflow** | Low-code | ETL from CRM/cloud sources, smaller datasets |\n| **Spark Notebook** | Pro-code | Large-scale data engineering, complex transforms |\n| **Stored Procedure** | Pro-code | T-SQL processing, database operations |\n| **KQL Activity** | Specialized | Real-Time Intelligence, streaming logs |\n\n### Analogy\nMoving 50MB of data is like moving a small pile of bricks. You could build a conveyor belt (Spark/Stored Proc) - powerful but complex. The company prefers a **wheelbarrow (Dataflow)** - simple, effective, anyone can use it.\n\n### Further Reading\n- [Dataflow Gen2 in Fabric](https://learn.microsoft.com/en-us/fabric/data-factory/create-first-dataflow-gen2)",
+    "domain": "Prepare",
+    "caseStudyRef": "Litware"
+  },
+  {
+    "id": 9,
+    "type": "MultipleChoice",
+    "text": "Which type of data store should you recommend in the AnalyticsPOC workspace?",
+    "options": [
+      { "id": "A", "text": "A data lake" },
+      { "id": "B", "text": "A warehouse" },
+      { "id": "C", "text": "A lakehouse" },
+      { "id": "D", "text": "An external Hive metastore" }
+    ],
+    "correctOptionIds": ["C"],
+    "explanation": "The lakehouse uniquely supports: T-SQL via SQL analytics endpoint + Python/Spark notebooks + semi-structured/unstructured data + Delta Lake format + Row-level security. Warehouses don't support Spark notebooks. Data Scientists need Spark notebook access, which lakehouse provides.",
+    "detailedExplanation": "## Learning Material\n\n### Lakehouse vs Warehouse Comparison\n| Requirement | Lakehouse | Warehouse |\n|-------------|-----------|----------|\n| **T-SQL Support** | Yes (via SQL endpoint) | Yes (Primary) |\n| **Python/Spark** | **Yes** | Limited/No |\n| **Unstructured Data** | **Yes** | No (Structured only) |\n| **Delta Lake Format** | Yes | Yes |\n| **RLS via SQL** | Yes | Yes |\n\n### Decision Framework\nChoose **Lakehouse** when:\n- Spark/Python access needed\n- Unstructured data support required\n- Data Science workloads\n- Need both SQL AND Spark flexibility\n\nChoose **Warehouse** when:\n- Pure T-SQL environment\n- Traditional BI/reporting\n- Structured data only\n\n### Analogy\nA **Lakehouse** is a **multi-tool kitchen**:\n- The **Lake portion** (Spark) = flexible open counter for any ingredient type\n- The **Warehouse portion** (SQL endpoint) = organized spice rack for quick labeled access\n\n### Further Reading\n- [Lakehouse vs Warehouse in Fabric](https://learn.microsoft.com/en-us/fabric/data-engineering/lakehouse-overview)",
+    "domain": "Prepare",
+    "caseStudyRef": "Litware"
+  },
+  {
+    "id": 10,
+    "type": "MultipleChoice",
+    "text": "You have a Fabric warehouse that contains a table named Staging.Sales with columns: ProductID (Integer), ProductName (Varchar), SalesDate (Datetime2), WholesalePrice (Decimal), Amount (Decimal).\n\nYou need to write a T-SQL query that will return data for the year 2023 that displays ProductID and ProductName and has a summarized Amount that is higher than 10,000.\n\nWhich query should you use?",
+    "options": [
+      { "id": "A", "text": "SELECT ProductID, ProductName, SUM(Amount) AS TotalAmount FROM Staging.Sales WHERE DATEPART(YEAR, SaleDate) = '2023' GROUP BY ProductID, ProductName HAVING SUM(Amount) > 10000" },
+      { "id": "B", "text": "SELECT ProductID, ProductName, SUM(Amount) AS TotalAmount FROM Staging.Sales GROUP BY ProductID, ProductName HAVING DATEPART(YEAR, SaleDate) = '2023' AND SUM(Amount) > 10000" },
+      { "id": "C", "text": "SELECT ProductID, ProductName, SUM(Amount) AS TotalAmount FROM Staging.Sales WHERE DATEPART(YEAR, SaleDate) = '2023' AND SUM(Amount) > 10000 GROUP BY ProductID, ProductName" },
+      { "id": "D", "text": "SELECT ProductID, ProductName, SUM(Amount) AS TotalAmount FROM Staging.Sales WHERE DATEPART(YEAR, SaleDate) = '2023' GROUP BY ProductID, ProductName HAVING TotalAmount > 10000" }
+    ],
+    "correctOptionIds": ["A"],
+    "explanation": "WHERE filters rows BEFORE grouping (year = 2023). HAVING filters AFTER aggregation (SUM > 10000). Option B wrongly puts year filter in HAVING. Option C puts aggregate in WHERE (not allowed). Option D uses alias in HAVING (not allowed in standard T-SQL).",
+    "detailedExplanation": "## Learning Material\n\n### T-SQL Logical Processing Order\n```sql\n-- Correct pattern:\nSELECT ProductID, ProductName, SUM(Amount) AS TotalAmount\nFROM Staging.Sales\nWHERE DATEPART(YEAR, SaleDate) = '2023'  -- Row filter FIRST\nGROUP BY ProductID, ProductName           -- Then group\nHAVING SUM(Amount) > 10000                -- Then filter aggregates\n```\n\n### WHERE vs HAVING\n| Clause | Filters | When Applied |\n|--------|---------|-------------|\n| **WHERE** | Individual rows | BEFORE grouping |\n| **HAVING** | Aggregated results | AFTER grouping |\n\n### Common Mistakes\n- ❌ Aggregate in WHERE: `WHERE SUM(Amount) > 10000`\n- ❌ Row-level filter in HAVING: `HAVING SaleDate = '2023'`\n- ❌ Alias in HAVING: `HAVING TotalAmount > 10000`\n\n### Analogy\nSorting fruit to find types with total sales > $10,000 in 2023:\n- **WHERE (Trash Bin):** Throw away 2022 & 2024 fruit first\n- **GROUP BY (Boxes):** Put apples in one box, oranges in another\n- **HAVING (Scale):** Weigh each box, keep only heavy ones\n\n### Further Reading\n- [T-SQL Logical Processing Order](https://learn.microsoft.com/en-us/sql/t-sql/queries/select-transact-sql)",
+    "domain": "Analyze"
+  },
+  {
+    "id": 11,
+    "type": "Dropdown",
+    "text": "You have a data warehouse that contains a table named Stage.Customers. Stage.Customers contains all the customer record updates from a CRM system. There can be multiple updates per customer.\n\nYou need to write a T-SQL query that will return the customer ID, name, postal code, and the last updated time of the most recent row for each customer ID.\n\nHow should you complete the code?\n\n**NOTE:** Each correct selection is worth one point.\n\n```sql\nWITH CUSTOMERBASE AS (\n  SELECT [CustomerID], [CustomerName], [PostalCode], [LastUpdated],\n         x = [Dropdown 1] OVER (PARTITION BY CustomerID ORDER BY LastUpdated DESC)\n  FROM [Lakehouse POC].[dbo].[CustomerChanges]\n)\nSELECT CustomerID, CustomerName, PostalCode, LastUpdated\nFROM CUSTOMERBASE\n[Dropdown 2]\n```",
+    "menus": [
+      {
+        "id": "window_function",
+        "label": "Dropdown 1 (Window Function)",
+        "options": [
+          { "id": "last_value", "text": "LAST_VALUE()" },
+          { "id": "ntile", "text": "NTILE()" },
+          { "id": "row_number", "text": "ROW_NUMBER()" }
+        ]
+      },
+      {
+        "id": "filter_clause",
+        "label": "Dropdown 2 (Filter Clause)",
+        "options": [
+          { "id": "having_max", "text": "HAVING MAX(LastUpdated) = 1" },
+          { "id": "where_max", "text": "WHERE LastUpdated = MAX(LastUpdated)" },
+          { "id": "where_x", "text": "WHERE X = 1" }
+        ]
+      }
+    ],
+    "correctMapping": {
+      "window_function": "row_number",
+      "filter_clause": "where_x"
+    },
+    "explanation": "ROW_NUMBER() assigns sequential integers per partition. With PARTITION BY CustomerID and ORDER BY LastUpdated DESC, the newest record gets x=1. WHERE X = 1 filters to only the most recent. LAST_VALUE returns a value, not a row identifier. Aggregate functions can't be used in WHERE without a subquery.",
+    "detailedExplanation": "## Learning Material\n\n### The 'Top-1 Per Group' Pattern\n```sql\nWITH CTE AS (\n  SELECT *, ROW_NUMBER() OVER (PARTITION BY GroupCol ORDER BY SortCol DESC) AS rn\n  FROM Table\n)\nSELECT * FROM CTE WHERE rn = 1\n```\n\n### Window Function Comparison\n| Function | Purpose | Returns |\n|----------|---------|--------|\n| **ROW_NUMBER()** | Unique sequential #s | 1, 2, 3... per partition |\n| **RANK()** | Ranking with gaps | 1, 2, 2, 4... |\n| **LAST_VALUE()** | Value from last row | Column value, not row ID |\n| **NTILE(n)** | Distributes into n groups | 1, 2, 3...n |\n\n### Analogy\nThink of mail stacks:\n- **PARTITION BY CustomerID** = Sort mail into piles per person\n- **ORDER BY LastUpdated DESC** = Put newest letter on top\n- **ROW_NUMBER()** = Write '1' on top envelope of each pile\n- **WHERE X = 1** = Only bring letters marked '1'\n\n### Further Reading\n- [ROW_NUMBER (T-SQL)](https://learn.microsoft.com/en-us/sql/t-sql/functions/row-number-transact-sql)",
+    "domain": "Analyze"
+  },
+  {
+    "id": 12,
+    "type": "Dropdown",
+    "text": "You have a Fabric tenant. You plan to create a Fabric notebook that will use Spark DataFrames to generate Microsoft Power BI visuals.\n\nYou run the following code:\n\n```python\nfrom powerbiclient import QuickVisualize, get_dataset_config, Report\nPBI_visualize = QuickVisualize(get_dataset_config(df))\nPBI_visualize\n```\n\nFor each of the following statements, select **Yes** if the statement is true. Otherwise, select **No**.\n\n**NOTE:** Each correct selection is worth one point.",
+    "menus": [
+      {
+        "id": "statement_1",
+        "label": "The code embeds an existing Power BI report.",
+        "options": [
+          { "id": "yes", "text": "Yes" },
+          { "id": "no", "text": "No" }
+        ]
+      },
+      {
+        "id": "statement_2",
+        "label": "The code creates a Power BI report.",
+        "options": [
+          { "id": "yes", "text": "Yes" },
+          { "id": "no", "text": "No" }
+        ]
+      },
+      {
+        "id": "statement_3",
+        "label": "The code displays a summary of the DataFrame.",
+        "options": [
+          { "id": "yes", "text": "Yes" },
+          { "id": "no", "text": "No" }
+        ]
+      }
+    ],
+    "correctMapping": {
+      "statement_1": "no",
+      "statement_2": "yes",
+      "statement_3": "no"
+    },
+    "explanation": "QuickVisualize creates a NEW interactive Power BI report from a DataFrame - it doesn't embed an existing report or just display a summary. The get_dataset_config(df) takes the DataFrame schema and data to generate a full visualization interface.",
+    "detailedExplanation": "## Learning Material\n\n### QuickVisualize Purpose\n`QuickVisualize` is part of the `powerbiclient` library that bridges Spark notebooks with Power BI.\n\n### Statement Analysis\n| Statement | Answer | Why |\n|-----------|--------|-----|\n| Embeds existing report | **No** | No Report ID referenced, uses DataFrame |\n| Creates a report | **Yes** | Generates NEW interactive visual from df |\n| Displays summary | **No** | Creates full visual interface, not df.describe() |\n\n### Key Distinctions\n- **df.describe()** = Text summary statistics\n- **df.show()** = Display rows as text\n- **QuickVisualize** = Full interactive Power BI charts\n\n### Analogy\nThink of your DataFrame as raw lumber:\n- **df.describe()** = Read the lumber's specifications label\n- **QuickVisualize** = Project a holographic 3D house model from that lumber\n\n### Further Reading\n- [Visualize data in Fabric notebooks](https://learn.microsoft.com/en-us/fabric/data-engineering/notebook-visualization)",
+    "domain": "Analyze"
+  },
+  {
+    "id": 13,
+    "type": "MultipleChoice",
+    "text": "You are the administrator of a Fabric workspace that contains a lakehouse named Lakehouse1. Lakehouse1 contains the following tables:\n\n- **Table1:** A Delta table created by using a shortcut\n- **Table2:** An external table created by using Spark\n- **Table3:** A managed table\n\nYou plan to connect to Lakehouse1 by using its SQL endpoint.\n\nWhat will you be able to do after connecting to Lakehouse1?",
+    "options": [
+      { "id": "A", "text": "Read Table3." },
+      { "id": "B", "text": "Update the data in Table3." },
+      { "id": "C", "text": "Read Table2." },
+      { "id": "D", "text": "Update the data in Table1." }
+    ],
+    "correctOptionIds": ["A"],
+    "explanation": "The SQL analytics endpoint is READ-ONLY for T-SQL - no UPDATE/DELETE/INSERT allowed (rules out B & D). Managed tables (Table3) are automatically Delta format and visible via SQL endpoint. External Spark tables may not be visible unless properly registered.",
+    "detailedExplanation": "## Learning Material\n\n### SQL Analytics Endpoint Capabilities\n| Capability | Supported? |\n|-----------|------------|\n| **Read Data (Managed/Delta)** | ✅ Yes |\n| **Query with T-SQL** | ✅ Yes |\n| **UPDATE/INSERT/DELETE** | ❌ No (Read-only) |\n| **Python Access** | ❌ No (Use Spark notebooks) |\n\n### Table Visibility\n| Table Type | Visible in SQL Endpoint? |\n|------------|------------------------|\n| **Managed Table** | ✅ Always (Delta format) |\n| **Delta Shortcut** | ✅ Yes |\n| **External Spark Table** | ⚠️ May not be visible |\n\n### Analogy\nThink of the SQL endpoint as a **Library Reading Room**:\n- You can READ any book on the shelves (Managed/Delta tables)\n- You CANNOT write in or edit the books (Read-only)\n- To edit, go to the Author's Studio (Spark Notebooks)\n\n### Further Reading\n- [SQL analytics endpoint in Lakehouse](https://learn.microsoft.com/en-us/fabric/data-engineering/lakehouse-sql-analytics-endpoint)",
+    "domain": "Prepare"
+  },
+  {
+    "id": 14,
+    "type": "MultipleChoice",
+    "text": "You have a Fabric tenant that contains a warehouse.\n\nYou use a dataflow to load a new dataset from OneLake to the warehouse.\n\nYou need to add a Power Query step to identify the maximum values for the numeric columns.\n\nWhich function should you include in the step?",
+    "options": [
+      { "id": "A", "text": "Table.MaxN" },
+      { "id": "B", "text": "Table.Max" },
+      { "id": "C", "text": "Table.Range" },
+      { "id": "D", "text": "Table.Profile" }
+    ],
+    "correctOptionIds": ["D"],
+    "explanation": "Table.Profile returns a summary table with Min, Max, Average, StdDev, Count for ALL numeric columns at once. Table.Max returns the largest ROW (not column max). Table.MaxN returns top N rows. Table.Range returns a subset of rows.",
+    "detailedExplanation": "## Learning Material\n\n### Power Query M Functions Comparison\n| Function | Purpose | Returns |\n|----------|---------|--------|\n| **Table.Profile** | Summary stats for all columns | Min, Max, Avg, Count per column |\n| **Table.Max** | Largest ROW by criteria | Single row |\n| **Table.MaxN** | Top N rows by sort | N rows |\n| **Table.Range** | Subset of rows by offset | Row range |\n\n### When to Use Table.Profile\n- Identifying max values across multiple numeric columns\n- Data profiling during ingestion\n- Quick statistical overview\n\n### Analogy\n**Table.Profile** is like a **Medical Check-up Report** for your data:\n- Instead of checking each patient (row) individually\n- You get a summary page with Max Height, Avg Weight, Count per column\n\n### Further Reading\n- [Table.Profile (Power Query M)](https://learn.microsoft.com/en-us/powerquery-m/table-profile)",
+    "domain": "Prepare"
   }
 ]

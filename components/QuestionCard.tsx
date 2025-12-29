@@ -203,37 +203,51 @@ const QuestionCard: React.FC<Props> = ({
 
       {/* Options */}
       <div className="grid gap-3 mb-10">
-        {question.options.map((option) => (
+        {question.options.map((option) => {
+          const isCodeOption = /^(SELECT|CREATE|INSERT|UPDATE|DELETE|ALTER|DROP|EXEC|DECLARE|WITH\s|spark\.|CALCULATE|AVERAGE|SUM|VAR\s)/i.test(option.text.trim());
+          
+          return (
           <button
             key={option.id}
             onClick={() => handleOptionClick(option.id)}
             disabled={isSubmitted}
-            className={`w-full text-left p-5 rounded-2xl border transition-all duration-200 flex items-start group relative overflow-hidden ${getOptionStyle(option.id)}`}
+            className={`w-full text-left p-3 md:p-5 rounded-2xl border transition-all duration-200 ${isCodeOption ? 'flex flex-col' : 'flex items-start'} group relative overflow-hidden ${getOptionStyle(option.id)}`}
           >
             {/* Status Icon for Submitted State */}
             {isSubmitted && question.correctOptionIds.includes(option.id) && (
-              <div className="absolute right-4 top-1/2 -translate-y-1/2 text-green-500">
+              <div className="absolute right-3 md:right-4 top-3 md:top-1/2 md:-translate-y-1/2 text-green-500">
                 <CheckCircle2 size={24} />
               </div>
             )}
             
-            <div className={`flex-shrink-0 w-6 h-6 ${isMultiSelect ? 'rounded-lg' : 'rounded-full'} border-2 mr-5 flex items-center justify-center transition-all duration-300
-              ${selectedIds.includes(option.id) 
-                ? (isSubmitted && question.correctOptionIds.includes(option.id) 
-                    ? 'border-green-500 bg-green-500 text-white scale-110' 
-                    : isSubmitted 
-                      ? 'border-red-400 bg-red-400 text-white'
-                      : 'border-fabric-600 bg-fabric-600 text-white scale-110')
-                : 'border-slate-300 bg-white group-hover:border-fabric-400'
-              }
-            `}>
-              {selectedIds.includes(option.id) && <Check size={14} strokeWidth={4} />}
+            {/* Radio/Checkbox indicator */}
+            <div className={`${isCodeOption ? 'mb-2' : 'flex-shrink-0 mr-3 md:mr-5'}`}>
+              <div className={`w-5 h-5 md:w-6 md:h-6 ${isMultiSelect ? 'rounded-lg' : 'rounded-full'} border-2 flex items-center justify-center transition-all duration-300
+                ${selectedIds.includes(option.id) 
+                  ? (isSubmitted && question.correctOptionIds.includes(option.id) 
+                      ? 'border-green-500 bg-green-500 text-white scale-110' 
+                      : isSubmitted 
+                        ? 'border-red-400 bg-red-400 text-white'
+                        : 'border-fabric-600 bg-fabric-600 text-white scale-110')
+                  : 'border-slate-300 bg-white group-hover:border-fabric-400'
+                }
+              `}>
+                {selectedIds.includes(option.id) && <Check size={12} strokeWidth={4} />}
+              </div>
             </div>
-            <span className={`text-lg pt-0.5 pr-8 ${isSubmitted && !question.correctOptionIds.includes(option.id) && !selectedIds.includes(option.id) ? 'text-slate-400' : 'text-slate-700'}`}>
-              {option.text}
-            </span>
+            
+            {/* Option content */}
+            {isCodeOption ? (
+              <pre className={`w-full text-xs md:text-sm font-mono bg-slate-50 p-2 md:p-3 rounded-lg border border-slate-200 overflow-x-auto whitespace-pre-wrap break-all ${isSubmitted && !question.correctOptionIds.includes(option.id) && !selectedIds.includes(option.id) ? 'text-slate-400' : 'text-slate-700'}`}>
+                <code>{option.text}</code>
+              </pre>
+            ) : (
+              <span className={`text-base md:text-lg pt-0.5 pr-8 ${isSubmitted && !question.correctOptionIds.includes(option.id) && !selectedIds.includes(option.id) ? 'text-slate-400' : 'text-slate-700'}`}>
+                {option.text}
+              </span>
+            )}
           </button>
-        ))}
+        )})}
       </div>
 
       {/* Feedback Section */}

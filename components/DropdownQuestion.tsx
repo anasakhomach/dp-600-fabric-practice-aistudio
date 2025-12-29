@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { DropdownQuestion, UserProgress } from '../types';
-import { CheckCircle2, XCircle, Lightbulb, ChevronDown, ArrowRight } from 'lucide-react';
+import { CheckCircle2, XCircle, Lightbulb, ChevronDown, ArrowRight, ListChecks, Trophy, Bookmark } from 'lucide-react';
 import QuestionContextImage from './QuestionContextImage';
 import DeepDiveSection from './DeepDiveSection';
+import QuestionText from './QuestionText';
 
 interface Props {
   question: DropdownQuestion;
   existingAnswer?: UserProgress;
   onAnswer: (questionId: number, selectedIds: string[], isCorrect: boolean, mapping?: Record<string, string>) => void;
   onNext?: () => void;
+  questionIndex: number;
+  totalQuestions: number;
+  score: number;
+  isBookmarked: boolean;
+  onBookmarkToggle: () => void;
 }
 
 const DropdownQuestionComponent: React.FC<Props> = ({
@@ -16,6 +22,11 @@ const DropdownQuestionComponent: React.FC<Props> = ({
   existingAnswer,
   onAnswer,
   onNext,
+  questionIndex,
+  totalQuestions,
+  score,
+  isBookmarked,
+  onBookmarkToggle,
 }) => {
   const [selections, setSelections] = useState<Record<string, string>>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -53,11 +64,60 @@ const DropdownQuestionComponent: React.FC<Props> = ({
 
   return (
     <div className="max-w-4xl mx-auto p-4 md:p-8 pb-24">
+      {/* Header Info */}
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
+        <div className="flex flex-wrap items-center gap-3">
+          <span className={`px-3 py-1.5 text-xs font-bold rounded-lg uppercase tracking-wider
+            ${question.domain === 'Maintain' ? 'bg-orange-100 text-orange-700' : 
+              question.domain === 'Prepare' ? 'bg-blue-100 text-blue-700' :
+              question.domain === 'Model' ? 'bg-purple-100 text-purple-700' :
+              'bg-teal-100 text-teal-700'
+            }
+          `}>
+            {question.domain || "General"}
+          </span>
+          {question.caseStudyRef && (
+            <span className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-800 text-white text-xs font-semibold rounded-lg shadow-sm">
+              📖 {question.caseStudyRef} Case
+            </span>
+          )}
+          <span className="text-xs font-medium text-slate-400 bg-slate-100 px-2 py-1 rounded">
+            Dropdown
+          </span>
+        </div>
+        
+        <div className="flex items-center justify-between lg:justify-end gap-3 w-full lg:w-auto">
+          {/* Compact Score/Progress Card */}
+          <div className="flex items-center gap-3 px-4 py-1.5 bg-white border border-slate-200 rounded-full shadow-sm text-sm h-9">
+            <div className="flex items-center gap-1.5" title="Current Question / Total">
+              <ListChecks size={16} className="text-slate-400" />
+              <span className="font-bold text-slate-700 tabular-nums">{questionIndex + 1}<span className="text-slate-300 font-normal mx-0.5">/</span>{totalQuestions}</span>
+            </div>
+            <div className="w-px h-4 bg-slate-200"></div>
+            <div className="flex items-center gap-1.5" title="Current Score">
+              <Trophy size={16} className="text-yellow-500" />
+              <span className="font-bold text-fabric-600 tabular-nums">{score}</span>
+            </div>
+          </div>
+
+          <button 
+            onClick={onBookmarkToggle}
+            className={`flex items-center gap-2 px-4 py-1.5 rounded-full transition-all duration-200 border text-sm font-semibold shadow-sm h-9 ${
+              isBookmarked 
+                ? 'bg-yellow-50 border-yellow-200 text-yellow-600 shadow-yellow-100' 
+                : 'bg-white border-slate-200 text-slate-500 hover:text-yellow-600 hover:border-yellow-200 hover:shadow'
+            }`}
+            title={isBookmarked ? "Remove from bookmarks" : "Save for later"}
+          >
+            <Bookmark size={16} fill={isBookmarked ? "currentColor" : "none"} />
+            <span className="hidden sm:inline">{isBookmarked ? 'Bookmarked' : 'Bookmark'}</span>
+          </button>
+        </div>
+      </div>
+
       {/* Question Text */}
       <div className="mb-8">
-        <h2 className="text-xl md:text-2xl font-medium text-slate-900 leading-relaxed">
-          {question.text}
-        </h2>
+        <QuestionText text={question.text} />
         {question.codeSnippet && (
             <div className="mt-4 p-4 bg-slate-900 rounded-xl overflow-x-auto relative group">
                 <div className="absolute top-3 right-3 flex gap-2">

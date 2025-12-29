@@ -76,6 +76,11 @@ export const fetchQuestions = async (options?: QueryOptions): Promise<Question[]
     const dropdownMenusByQuestion = groupBy(dropdownMenusResult.data || [], 'question_id');
     const dropdownOptionsByMenu = groupBy(dropdownOptionsResult.data || [], 'menu_id');
 
+    // Debug: Check dropdown data
+    console.log('[API Debug] Dropdown Menus:', dropdownMenusResult.data);
+    console.log('[API Debug] Dropdown Options:', dropdownOptionsResult.data);
+    console.log('[API Debug] Options by Menu:', dropdownOptionsByMenu);
+
     // Build correct mappings for DragDrop
     const dragMappings: Record<number, Record<string, string>> = {};
     for (const mapping of dragMappingsResult.data || []) {
@@ -121,15 +126,29 @@ export const fetchQuestions = async (options?: QueryOptions): Promise<Question[]
 
       if (dbQ.type === 'Dropdown') {
         const menus = dropdownMenusByQuestion[dbQ.id] || [];
+        console.log(`[API Debug] Q${dbQ.id} Dropdown menus:`, menus.length, menus.map((m: any) => m.id));
         const menusWithOptions = menus.map(menu => ({
           id: menu.id,
           label: menu.label,
-          options: (dropdownOptionsByMenu[menu.id] || []).map((opt: any) => ({ id: opt.id, text: opt.text })),
+          // Extract original option ID by removing the menu_id prefix from composite ID
+          options: (dropdownOptionsByMenu[menu.id] || []).map((opt: any) => {
+            // Composite ID format: "menu_id_opt_id" - extract the opt_id part
+            const originalId = opt.id.startsWith(`${menu.id}_`) 
+              ? opt.id.slice(`${menu.id}_`.length) 
+              : opt.id;
+            return { id: originalId, text: opt.text };
+          }),
         }));
         const correctMapping: Record<string, string> = {};
         for (const menu of menus) {
           const correctOpt = (dropdownOptionsByMenu[menu.id] || []).find((o: any) => o.is_correct);
-          if (correctOpt) correctMapping[menu.id] = correctOpt.id;
+          if (correctOpt) {
+            // Extract original option ID for correct mapping
+            const originalId = correctOpt.id.startsWith(`${menu.id}_`) 
+              ? correctOpt.id.slice(`${menu.id}_`.length) 
+              : correctOpt.id;
+            correctMapping[menu.id] = originalId;
+          }
         }
         return {
           ...baseQuestion,

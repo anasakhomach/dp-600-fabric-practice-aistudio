@@ -143,8 +143,10 @@ async function migrateQuestions() {
           label: menu.label,
         });
         for (const opt of menu.options) {
+          // Use composite ID to avoid collision when menus share option IDs
+          const compositeId = `${menu.id}_${opt.id}`;
           await supabase.from('dropdown_options').upsert({
-            id: opt.id,
+            id: compositeId,
             menu_id: menu.id,
             text: opt.text,
             is_correct: q.correctMapping?.[menu.id] === opt.id || false,

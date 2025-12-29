@@ -1,0 +1,130 @@
+question_5: {{ (related to "Litware, Inc." case study.
+You need to assign permissions for the data store in the AnalyticsPOC workspace. The solution must meet the security requirements.
+Which additional permissions should you assign when you share the data store? To answer, select the appropriate options in the answer area.
+NOTE: Each correct selection is worth one point.
+Answer Area
+DataEngineers:
+Build Reports on the default dataset
+Read All Apache Spark
+Read All SQL analytics endpoint data
+DataAnalysts:
+Build Reports on the default dataset
+Read All Apache Spark
+Read All SQL analytics endpoint data
+DataScientists:
+Build Reports on the default dataset
+Read All Apache Spark
+Read All SQL analytics endpoint data
+Image Description
+This image is a screenshot of what appears to be a question from an online certification exam, likely related to data platforms like Microsoft Fabric or Azure Synapse.
+The screen presents a scenario asking which specific permissions should be assigned to three different data professional roles: DataEngineers, DataAnalysts, and DataScientists.
+Under the "Answer Area" heading, each role is associated with an interactive dropdown menu. In the screenshot, all three dropdowns are expanded, revealing the exact same three permission options for selection: "Build Reports on the default dataset", "Read All Apache Spark", and "Read All SQL analytics endpoint data".
+
+This question is part of the **Litware, Inc. Case Study (Topic 1)**. To meet the security requirements while following the **principle of least privilege**, you must map the specific needs of each role to the additional permissions available when sharing a Fabric data store (Lakehouse or Warehouse).
+
+### **Correct Answer Selections**
+
+*   **DataEngineers:** Read All SQL analytics endpoint data
+*   **DataAnalysts:** Build Reports on the default dataset
+*   **DataScientists:** Read All Apache Spark
+
+---
+
+### **Explanation**
+
+1.  **DataEngineers (Read All SQL analytics endpoint data):**
+    *   **Requirement:** The case study states that "The data engineers must be able to read from and write to the data store". 
+    *   **Logic:** In Microsoft Fabric, sharing a data store with the **Read All SQL analytics endpoint data** permission allows the user to query all tables using T-SQL. This is essential for data engineers to validate data loads and perform the "read" portion of their duties within the data store.
+    *   **Constraint:** They must have "No access... to datasets or reports," so they should **not** receive the "Build Reports" permission.
+
+2.  **DataAnalysts (Build Reports on the default dataset):**
+    *   **Requirement:** The analysts must have access to "create Power BI reports by using the semantic models".
+    *   **Logic:** When you share a data store, selecting **Build Reports on the default dataset** grants the user the "Build" permission on the automatically generated semantic model. This allows them to create new reports in the Power BI service or Desktop using that data source.
+    *   **Constraint:** They only need access to the "dimensional model objects," which is handled via the semantic model or RLS.
+
+3.  **DataScientists (Read All Apache Spark):**
+    *   **Requirement:** Data scientists "must be able to read from the data store... by using a Spark notebook".
+    *   **Logic:** The **Read All Apache Spark** permission specifically enables users to access the underlying files and tables of a data store using the Spark engine. This is the standard permission required for Notebook-based data science workflows in Fabric.
+
+---
+
+### **Learning Material to Memorize**
+
+To master sharing permissions in Fabric, memorize the **"Access vs. Tool"** mapping:
+
+| Permission Name | Tool / Language Enabled | Role Example |
+| :--- | :--- | :--- |
+| **Read All SQL analytics endpoint data** | T-SQL / SQL Query Editor | Data Engineer / SQL Developer |
+| **Read All Apache Spark** | Python, Scala, Spark SQL / Notebooks | Data Scientist |
+| **Build Reports on the default dataset** | Power BI Report Builder / Desktop | Data Analyst |
+
+**Summary: The Principle of Least Privilege**
+Always grant the minimum engine access required for the user's tool. If they use Notebooks, give them Spark. If they use SQL Management Studio or the SQL editor, give them SQL. If they only build reports, give them Build permissions on the dataset.
+
+---
+
+### **Further Learning Resources**
+*   [**Share your Warehouse and manage permissions**](https://learn.microsoft.com/en-us/fabric/data-warehouse/share-warehouse-manage-permissions)
+*   [**Security in Microsoft Fabric**](https://learn.microsoft.com/en-us/fabric/security/service-admin-premium-multi-geo)
+*   [**Data science roles and permissions in Fabric**](https://learn.microsoft.com/en-us/fabric/data-science/data-science-roles-permissions)
+
+**Analogy for Sharing Permissions:**
+Think of the data store as a **high-security building**. 
+*   **SQL permission** is a keycard for the **front door** (the structured entrance).
+*   **Spark permission** is a keycard for the **service elevator** (the direct access to the "pipes" and raw materials).
+*   **Build permission** is a **guest pass** that only allows someone to enter the **observation deck** (the reports) to look at the view without touching the infrastructure.
+
+
+can you do a deeper research to double check this question. i am seeing an online forum and people have have different ideas about the correct answer, please cors reference the relevant Microsoft documentation
+
+Based on a cross-reference of the **Litware, Inc. Case Study** requirements and the official **Microsoft Fabric security documentation**, here is the verified breakdown for Question 5.
+
+The solution relies on the **"Principle of Least Privilege"** and the specific toolsets identified for each role in the technical and security requirements of the sources.
+
+### **Correct Answer Selections**
+
+*   **DataEngineers:** Read All SQL analytics endpoint data
+*   **DataAnalysts:** Build Reports on the default dataset
+*   **DataScientists:** Read All Apache Spark
+
+---
+
+### **Detailed Cross-Reference & Logic**
+
+#### **1. DataScientists (Requirement: Spark Notebooks)**
+*   **Source Requirement:** "The data scientists must be able to read from the data store... They will access the data by using a **Spark notebook**".
+*   **Technical Logic:** In Microsoft Fabric, notebooks interact with the data store using the Spark engine. When sharing a lakehouse or warehouse, the **"Read All Apache Spark"** permission is the specific entitlement that allows users to read data via Spark sessions and notebooks.
+*   **Why not others?** Granting them "Build Reports" would violate the principle of least privilege, as their role is focused on data science modeling, not Power BI report development.
+
+#### **2. DataAnalysts (Requirement: Create Reports)**
+*   **Source Requirement:** "The data analysts... must have access to **create Power BI reports** by using the semantic models".
+*   **Technical Logic:** When you share a Fabric data store, selecting **"Build Reports on the default dataset"** grants the user the "Build" permission on the underlying semantic model. This is a prerequisite for users to create new reports in the Power BI service or Desktop using that data source.
+*   **Why not others?** Analysts at Litware are restricted to "read access to **only the dimensional model objects**". Giving them "Read All Apache Spark" or "Read All SQL" would give them broader access to raw or non-dimensional data, violating their specific access constraint.
+
+#### **3. DataEngineers (Requirement: Read/Write, No Reports)**
+*   **Source Requirement:** "The data engineers must be able to **read from and write to** the data store. **No access must be granted to datasets or reports**".
+*   **Technical Logic:** While "writing" to a data store typically requires a workspace role (like Contributor), the question asks for the additional permission assigned **when sharing**. To satisfy the "read" requirement while strictly adhering to the "No access to reports" constraint, **"Read All SQL analytics endpoint data"** is the only valid choice. This allows them to use T-SQL to validate the data they have ingested without granting any permissions related to Power BI reports or semantic models.
+*   **Why not others?** Granting "Build Reports" is explicitly forbidden by the requirement "No access must be granted to datasets or reports".
+
+---
+
+### **Summary of Learning Material for Memorization**
+
+To ensure you can answer variations of this question, memorize this **Mapping of Requirements to Share Permissions**:
+
+| User Need in Case Study | Fabric Sharing Permission to Select |
+| :--- | :--- |
+| **"Create Power BI reports"** | Build Reports on the default dataset |
+| **"Use a Spark notebook"** | Read All Apache Spark |
+| **"Query via T-SQL / Validate Data"** | Read All SQL analytics endpoint data |
+
+**Key Constraint to Remember:**
+In the Litware case, **Data Engineers** are the only group explicitly banned from seeing reports. Therefore, any answer involving "Build Reports" for a Data Engineer is automatically incorrect.
+
+### **Further Learning Resources**
+*   [**Microsoft Fabric Security: Sharing and Permissions**](https://learn.microsoft.com/en-us/fabric/security/service-admin-premium-multi-geo)
+*   [**Manage SQL Granular Permissions in Fabric**](https://learn.microsoft.com/en-us/fabric/data-warehouse/sql-granular-permissions)
+*   [**Data Science Roles and Permissions**](https://learn.microsoft.com/en-us/fabric/data-science/data-science-roles-permissions)
+
+**Analogy for Sharing vs. Workspace Roles:**
+Think of a **Workspace Role** (like Member) as a **Master Key** to a workshop; you can use every tool inside. Think of **Sharing Permissions** as a **Specific Work Order**; you are letting someone into the workshop just to use the **lathe (Spark)**, the **drill (SQL)**, or to **take a photo of the finished product (Build Reports)**. The Case Study asks you to pick the specific tool for the job.
