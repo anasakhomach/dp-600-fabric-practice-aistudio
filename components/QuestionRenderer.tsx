@@ -96,6 +96,7 @@ const QuestionRenderer: React.FC<Props> = (props) => {
           score={props.score}
           isBookmarked={props.isBookmarked}
           onBookmarkToggle={props.onBookmarkToggle}
+          onShowCaseStudy={props.onShowCaseStudy}
         />
       );
 

@@ -15,6 +15,7 @@ interface Props {
   score: number;
   isBookmarked: boolean;
   onBookmarkToggle: () => void;
+  onShowCaseStudy: () => void;
 }
 
 const DropdownQuestionComponent: React.FC<Props> = ({
@@ -27,6 +28,7 @@ const DropdownQuestionComponent: React.FC<Props> = ({
   score,
   isBookmarked,
   onBookmarkToggle,
+  onShowCaseStudy,
 }) => {
   const [selections, setSelections] = useState<Record<string, string>>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -77,9 +79,12 @@ const DropdownQuestionComponent: React.FC<Props> = ({
             {question.domain || "General"}
           </span>
           {question.caseStudyRef && (
-            <span className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-800 text-white text-xs font-semibold rounded-lg shadow-sm">
+            <button 
+              onClick={onShowCaseStudy}
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-800 text-white text-xs font-semibold rounded-lg hover:bg-slate-700 transition-colors shadow-sm"
+            >
               📖 {question.caseStudyRef} Case
-            </span>
+            </button>
           )}
           <span className="text-xs font-medium text-slate-400 bg-slate-100 px-2 py-1 rounded">
             Dropdown
