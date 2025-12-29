@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { DropdownQuestion, UserProgress } from '../types';
-import { CheckCircle2, XCircle, Lightbulb, ChevronDown, ArrowRight, ListChecks, Trophy, Bookmark } from 'lucide-react';
+import { CheckCircle2, XCircle, Lightbulb, ChevronDown, ArrowRight, ListChecks, Trophy, Bookmark, BookOpen } from 'lucide-react';
 import QuestionContextImage from './QuestionContextImage';
 import DeepDiveSection from './DeepDiveSection';
 import QuestionText from './QuestionText';
@@ -83,7 +83,8 @@ const DropdownQuestionComponent: React.FC<Props> = ({
               onClick={onShowCaseStudy}
               className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-800 text-white text-xs font-semibold rounded-lg hover:bg-slate-700 transition-colors shadow-sm"
             >
-              📖 {question.caseStudyRef} Case
+              <BookOpen size={14} />
+              {question.caseStudyRef} Case
             </button>
           )}
           <span className="text-xs font-medium text-slate-400 bg-slate-100 px-2 py-1 rounded">
