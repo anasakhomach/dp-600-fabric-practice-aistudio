@@ -32,8 +32,17 @@ export const fetchQuestions = async (options?: QueryOptions): Promise<Question[]
     }
 
     // 2. Sorting/Shuffling (Simulate ORDER BY RAND())
+    console.log(`[API] Fetching questions. Shuffle: ${options?.shuffle}`);
     if (options?.shuffle) {
       data = shuffleArray(data);
+    } else {
+      // Create a shallow copy and sort by ID to ensure consistent order
+      // This fixes the issue where questions might appear out of order even when shuffle is disabled
+      data = [...data].sort((a, b) => {
+        console.log(`Sorting ${a.id} vs ${b.id}`); // Sample logging if needed, or just log first item after sort
+        return a.id - b.id;
+      });
+      console.log('[API] Sorted data. First ID:', data[0]?.id);
     }
 
     return data;

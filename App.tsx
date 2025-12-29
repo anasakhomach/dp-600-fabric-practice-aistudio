@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { fetchQuestions } from './services/api';
 import { Question, UserProgress } from './types';
 import { saveProgress, loadProgress, clearProgress } from './services/storage';
-import QuestionCard from './components/QuestionCard';
+import QuestionRenderer from './components/QuestionRenderer';
 import CaseStudyPanel from './components/CaseStudyPanel';
 import LandingPage from './components/LandingPage';
 import { RotateCcw, Award, ChevronLeft, ChevronRight, Loader2, Filter, Layers, Shuffle, Bookmark, Menu, X } from 'lucide-react';
@@ -110,14 +110,17 @@ const App: React.FC = () => {
     }
   }, [answers, currentViewScore, currentQuestionIndex, showResults, isLoading, questions.length, hasStarted, bookmarkedIds]);
 
-  const handleAnswer = (questionId: number, selectedOptionIds: string[], isCorrect: boolean) => {
+  const handleAnswer = (questionId: number, selectedOptionIds: string[], isCorrect: boolean, mapping?: Record<string, string>) => {
     setAnswers(prev => ({
       ...prev,
       [questionId]: {
         questionId,
         selectedOptionIds,
         isCorrect,
-        timestamp: Date.now()
+        timestamp: Date.now(),
+        // Extended fields for DragDrop/Hotspot
+        dragDropMapping: mapping,
+        selectedAreaIds: selectedOptionIds.length > 0 ? selectedOptionIds : undefined,
       }
     }));
   };
@@ -419,7 +422,7 @@ const App: React.FC = () => {
             <>
               {/* Question Card with embedded progress info */}
               <div className="flex-1 relative animate-fade-in">
-                <QuestionCard
+                <QuestionRenderer
                   question={currentQuestion}
                   existingAnswer={answers[currentQuestion.id]}
                   isBookmarked={bookmarkedIds.has(currentQuestion.id)}

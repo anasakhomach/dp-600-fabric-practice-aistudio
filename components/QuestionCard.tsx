@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { Question, UserProgress } from '../types';
+import { MultipleChoiceQuestion, UserProgress } from '../types';
 import { CheckCircle2, XCircle, BookOpen, Check, ArrowRight, Lightbulb, Bookmark, Trophy, ListChecks } from 'lucide-react';
+import QuestionContextImage from './QuestionContextImage';
 
 interface Props {
-  question: Question;
+  question: MultipleChoiceQuestion;
   existingAnswer?: UserProgress;
   isBookmarked: boolean;
   questionIndex: number;
@@ -178,6 +179,8 @@ const QuestionCard: React.FC<Props> = ({
           <Check size={14} />
           {isMultiSelect ? `Select ${question.correctOptionIds.length} correct answers` : "Select the best answer"}
         </div>
+        
+        {question.exhibitUrl && <QuestionContextImage imageUrl={question.exhibitUrl} />}
       </div>
 
       {/* Code Snippet */}
