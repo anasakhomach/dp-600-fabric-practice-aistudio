@@ -3,6 +3,7 @@ import ReactMarkdown from 'react-markdown';
 import { MultipleChoiceQuestion, UserProgress } from '../types';
 import { CheckCircle2, XCircle, BookOpen, Check, ArrowRight, Lightbulb, Bookmark, Trophy, ListChecks } from 'lucide-react';
 import QuestionContextImage from './QuestionContextImage';
+import DeepDiveSection from './DeepDiveSection';
 
 interface Props {
   question: MultipleChoiceQuestion;
@@ -237,30 +238,35 @@ const QuestionCard: React.FC<Props> = ({
 
       {/* Feedback Section */}
       {isSubmitted && (
-        <div className={`mb-8 overflow-hidden rounded-2xl border shadow-sm animate-in fade-in slide-in-from-bottom-4 duration-500 ${isCorrect ? 'bg-green-50/50 border-green-200' : 'bg-red-50/50 border-red-200'}`}>
-          <div className="p-6 md:p-8">
+        <div className={`mb-8 overflow-hidden rounded-2xl border shadow-sm animate-in fade-in slide-in-from-bottom-4 duration-500 w-full ${isCorrect ? 'bg-green-50/50 border-green-200' : 'bg-red-50/50 border-red-200'}`}>
+          <div className="p-4 md:p-6 lg:p-8">
             <div className="flex items-center gap-3 mb-4">
               {isCorrect ? (
-                <div className="p-2 bg-green-100 rounded-full text-green-600">
+                <div className="p-2 bg-green-100 rounded-full text-green-600 flex-shrink-0">
                   <CheckCircle2 size={24} />
                 </div>
               ) : (
-                <div className="p-2 bg-red-100 rounded-full text-red-600">
+                <div className="p-2 bg-red-100 rounded-full text-red-600 flex-shrink-0">
                   <XCircle size={24} />
                 </div>
               )}
-              <h3 className={`font-bold text-xl ${isCorrect ? 'text-green-900' : 'text-red-900'}`}>
+              <h3 className={`font-bold text-lg md:text-xl ${isCorrect ? 'text-green-900' : 'text-red-900'}`}>
                 {isCorrect ? "Correct Answer" : "Incorrect"}
               </h3>
             </div>
             
-            <div className="pl-14">
-              <div className="flex gap-2 items-start text-slate-700 leading-relaxed bg-white/60 p-4 rounded-xl border border-slate-100/50">
-                <Lightbulb className="flex-shrink-0 text-yellow-500 mt-1" size={20} />
-                <p>{question.explanation}</p>
+            <div className="pl-0 md:pl-12">
+              <div className="flex gap-2 items-start text-slate-700 leading-relaxed bg-white/60 p-3 md:p-4 rounded-xl border border-slate-100/50">
+                <Lightbulb className="flex-shrink-0 text-yellow-500 mt-0.5" size={18} />
+                <p className="text-sm md:text-base">{question.explanation}</p>
               </div>
             </div>
           </div>
+
+          {/* Deep Dive Section */}
+          {question.detailedExplanation && (
+            <DeepDiveSection content={question.detailedExplanation} />
+          )}
         </div>
       )}
 

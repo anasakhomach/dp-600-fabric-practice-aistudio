@@ -14,6 +14,7 @@ interface BaseQuestion {
   text: string;
   codeSnippet?: string;
   explanation: string;
+  detailedExplanation?: string; // Full AI tutor explanation with learning notes, tables, analogies
   exhibitUrl?: string; // Optional image for context (diagrams, etc.)
   caseStudyRef?: CaseStudyRef;
   domain?: Domain;
