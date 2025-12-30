@@ -1,130 +1,64 @@
-question_5: {{ (related to "Litware, Inc." case study.
-You need to assign permissions for the data store in the AnalyticsPOC workspace. The solution must meet the security requirements.
-Which additional permissions should you assign when you share the data store? To answer, select the appropriate options in the answer area.
-NOTE: Each correct selection is worth one point.
-Answer Area
-DataEngineers:
-Build Reports on the default dataset
-Read All Apache Spark
-Read All SQL analytics endpoint data
-DataAnalysts:
-Build Reports on the default dataset
-Read All Apache Spark
-Read All SQL analytics endpoint data
-DataScientists:
-Build Reports on the default dataset
-Read All Apache Spark
-Read All SQL analytics endpoint data
-Image Description
-This image is a screenshot of what appears to be a question from an online certification exam, likely related to data platforms like Microsoft Fabric or Azure Synapse.
-The screen presents a scenario asking which specific permissions should be assigned to three different data professional roles: DataEngineers, DataAnalysts, and DataScientists.
-Under the "Answer Area" heading, each role is associated with an interactive dropdown menu. In the screenshot, all three dropdowns are expanded, revealing the exact same three permission options for selection: "Build Reports on the default dataset", "Read All Apache Spark", and "Read All SQL analytics endpoint data".
+question_13: {{You are the administrator of a Fabric workspace that contains a lakehouse named Lakehouse1. Lakehouse1 contains the following tables:
+Table1: A Delta table created by using a shortcut
+Table2: An external table created by using Spark
+Table3: A managed table -
+You plan to connect to Lakehouse1 by using its SQL endpoint.
+What will you be able to do after connecting to Lakehouse1?
+A. Read Table3.
+B. Update the data Table3.
+C. Read Table2.
+D. Update the data in Table1.
+}}
 
-This question is part of the **Litware, Inc. Case Study (Topic 1)**. To meet the security requirements while following the **principle of least privilege**, you must map the specific needs of each role to the additional permissions available when sharing a Fabric data store (Lakehouse or Warehouse).
+After connecting to **Lakehouse1** using its **SQL analytics endpoint**, the correct action you will be able to perform is **A. Read Table3.**
 
-### **Correct Answer Selections**
+### **Technical Reasoning and Source Cross-Reference**
 
-*   **DataEngineers:** Read All SQL analytics endpoint data
-*   **DataAnalysts:** Build Reports on the default dataset
-*   **DataScientists:** Read All Apache Spark
+*   **Read-Only Nature of the SQL Endpoint:** According to the sources, the SQL analytics endpoint is designed for **read access** using T-SQL. It allows users to "Query with T-SQL" and "View data in the Data preview". It does **not support Data Manipulation Language (DML)** operations such as `UPDATE`, `DELETE`, or `INSERT`. This immediately disqualifies options **B** and **D**.
+*   **Support for Managed Tables:** **Table3** is a **managed table**. In a Fabric Lakehouse, managed tables are automatically stored in **Delta format**, which is a requirement for visibility in the SQL analytics endpoint. The endpoint automatically discovers these tables and surfaces them for T-SQL querying.
+*   **External Spark Tables (Table 2):** **Table2** is an **external table created by using Spark**. Generally, the SQL analytics endpoint only surfaces tables that are in the **Delta Lake format** and registered in the Lakehouse. External tables created via Spark that do not meet the Delta specifications or reside in external locations without a proper shortcut may not be visible or readable via the SQL endpoint. 
+*   **Delta Tables via Shortcuts (Table 1):** While **Table1** (a Delta table created via a shortcut) would be readable, the prompt asks for a valid action. Option **D** is incorrect because it suggests *updating* the data, which the read-only SQL endpoint cannot do.
 
----
+### **Summary of SQL Endpoint Capabilities**
 
-### **Explanation**
-
-1.  **DataEngineers (Read All SQL analytics endpoint data):**
-    *   **Requirement:** The case study states that "The data engineers must be able to read from and write to the data store". 
-    *   **Logic:** In Microsoft Fabric, sharing a data store with the **Read All SQL analytics endpoint data** permission allows the user to query all tables using T-SQL. This is essential for data engineers to validate data loads and perform the "read" portion of their duties within the data store.
-    *   **Constraint:** They must have "No access... to datasets or reports," so they should **not** receive the "Build Reports" permission.
-
-2.  **DataAnalysts (Build Reports on the default dataset):**
-    *   **Requirement:** The analysts must have access to "create Power BI reports by using the semantic models".
-    *   **Logic:** When you share a data store, selecting **Build Reports on the default dataset** grants the user the "Build" permission on the automatically generated semantic model. This allows them to create new reports in the Power BI service or Desktop using that data source.
-    *   **Constraint:** They only need access to the "dimensional model objects," which is handled via the semantic model or RLS.
-
-3.  **DataScientists (Read All Apache Spark):**
-    *   **Requirement:** Data scientists "must be able to read from the data store... by using a Spark notebook".
-    *   **Logic:** The **Read All Apache Spark** permission specifically enables users to access the underlying files and tables of a data store using the Spark engine. This is the standard permission required for Notebook-based data science workflows in Fabric.
-
----
-
-### **Learning Material to Memorize**
-
-To master sharing permissions in Fabric, memorize the **"Access vs. Tool"** mapping:
-
-| Permission Name | Tool / Language Enabled | Role Example |
+| Capability | Supported? | Source Evidence |
 | :--- | :--- | :--- |
-| **Read All SQL analytics endpoint data** | T-SQL / SQL Query Editor | Data Engineer / SQL Developer |
-| **Read All Apache Spark** | Python, Scala, Spark SQL / Notebooks | Data Scientist |
-| **Build Reports on the default dataset** | Power BI Report Builder / Desktop | Data Analyst |
+| **Read Data (Managed/Delta Tables)** | **Yes** | "Read access by using T-SQL" |
+| **Query with T-SQL** | **Yes** | "Query with T-SQL... View data in Data preview" |
+| **Update/Write Data** | **No** | Endpoint is read-only for T-SQL |
+| **Python Access** | **No** (not via SQL endpoint) | Python access requires a Spark notebook |
 
-**Summary: The Principle of Least Privilege**
-Always grant the minimum engine access required for the user's tool. If they use Notebooks, give them Spark. If they use SQL Management Studio or the SQL editor, give them SQL. If they only build reports, give them Build permissions on the dataset.
+**Analogy for SQL Endpoint vs. Spark:**
+Think of the **SQL analytics endpoint** as a **Library's Reading Room**. You can walk in and read any of the books on the shelves (**Managed/Delta Tables**), but you are strictly forbidden from writing in them or changing the text (**Read-Only**). If you want to edit the books or add new chapters, you must go to the **Author's Studio (Spark Notebooks)**, which has the specialized tools for writing and revision.
 
----
+question_14: {{
+You have a Fabric tenant that contains a warehouse.
+You use a dataow to load a new dataset from OneLake to the warehouse.
+You need to add a PowerQuery step to identify the maximum values for the numeric columns.
+Which function should you include in the step?
+A. Table.MaxN
+B. Table.Max
+C. Table.Range
+D. Table.Profile}}
 
-### **Further Learning Resources**
-*   [**Share your Warehouse and manage permissions**](https://learn.microsoft.com/en-us/fabric/data-warehouse/share-warehouse-manage-permissions)
-*   [**Security in Microsoft Fabric**](https://learn.microsoft.com/en-us/fabric/security/service-admin-premium-multi-geo)
-*   [**Data science roles and permissions in Fabric**](https://learn.microsoft.com/en-us/fabric/data-science/data-science-roles-permissions)
+To identify the maximum values for numeric columns within a Power Query step in a Fabric dataflow, you should use the function:
 
-**Analogy for Sharing Permissions:**
-Think of the data store as a **high-security building**. 
-*   **SQL permission** is a keycard for the **front door** (the structured entrance).
-*   **Spark permission** is a keycard for the **service elevator** (the direct access to the "pipes" and raw materials).
-*   **Build permission** is a **guest pass** that only allows someone to enter the **observation deck** (the reports) to look at the view without touching the infrastructure.
+**D. Table.Profile**
 
+### **Explanation and Logic**
+*   **Table.Profile:** This Power Query (M) function is specifically designed to return a summary table containing statistical information for every column in the dataset. This summary includes the **Minimum, Maximum, Average, Standard Deviation, and Count** for each numeric column. Because your requirement is to identify maximum values for "numeric columns" (plural), `Table.Profile` is the most efficient way to generate a list of those maximums in a single step.
+*   **Table.Max (Incorrect):** This function returns the largest **row** in a table based on a specific criteria, rather than a summary of maximum values for all columns.
+*   **Table.MaxN (Incorrect):** This is used to return the top "N" number of rows from a table based on a sort order.
+*   **Table.Range (Incorrect):** This function is used to return a subset of rows starting at a specific offset.
 
-can you do a deeper research to double check this question. i am seeing an online forum and people have have different ideas about the correct answer, please cors reference the relevant Microsoft documentation
+### **Alignment with Fabric Analytics Roles**
+As a Fabric Analytics Engineer, you are expected to use **Dataflow Gen2** for data transformation and preparation tasks. One of the core skills measured for the DP-600 exam is the ability to **aggregate data** and **identify missing or null values**, which is often achieved through data profiling steps during the ingestion process. 
 
-Based on a cross-reference of the **Litware, Inc. Case Study** requirements and the official **Microsoft Fabric security documentation**, here is the verified breakdown for Question 5.
+The sources note that the choice of data cleansing and transformation tools is at the discretion of the data engineer, but low-code tools like Dataflows are preferred for ingestion from sources like OneLake to the Warehouse.
 
-The solution relies on the **"Principle of Least Privilege"** and the specific toolsets identified for each role in the technical and security requirements of the sources.
+***
 
-### **Correct Answer Selections**
+**Note on Information Source:** While the provided sources confirm that **Dataflows** are the correct tool for these transformations and that **aggregating data** is a required skill, the specific technical definitions of Power Query "M" functions like `Table.Profile` are not explicitly detailed in these excerpts. This specific function knowledge is considered part of the prerequisite "Power Query" expertise required for the DP-600 certification. You may want to independently verify the M-language library for further function details.
 
-*   **DataEngineers:** Read All SQL analytics endpoint data
-*   **DataAnalysts:** Build Reports on the default dataset
-*   **DataScientists:** Read All Apache Spark
-
----
-
-### **Detailed Cross-Reference & Logic**
-
-#### **1. DataScientists (Requirement: Spark Notebooks)**
-*   **Source Requirement:** "The data scientists must be able to read from the data store... They will access the data by using a **Spark notebook**".
-*   **Technical Logic:** In Microsoft Fabric, notebooks interact with the data store using the Spark engine. When sharing a lakehouse or warehouse, the **"Read All Apache Spark"** permission is the specific entitlement that allows users to read data via Spark sessions and notebooks.
-*   **Why not others?** Granting them "Build Reports" would violate the principle of least privilege, as their role is focused on data science modeling, not Power BI report development.
-
-#### **2. DataAnalysts (Requirement: Create Reports)**
-*   **Source Requirement:** "The data analysts... must have access to **create Power BI reports** by using the semantic models".
-*   **Technical Logic:** When you share a Fabric data store, selecting **"Build Reports on the default dataset"** grants the user the "Build" permission on the underlying semantic model. This is a prerequisite for users to create new reports in the Power BI service or Desktop using that data source.
-*   **Why not others?** Analysts at Litware are restricted to "read access to **only the dimensional model objects**". Giving them "Read All Apache Spark" or "Read All SQL" would give them broader access to raw or non-dimensional data, violating their specific access constraint.
-
-#### **3. DataEngineers (Requirement: Read/Write, No Reports)**
-*   **Source Requirement:** "The data engineers must be able to **read from and write to** the data store. **No access must be granted to datasets or reports**".
-*   **Technical Logic:** While "writing" to a data store typically requires a workspace role (like Contributor), the question asks for the additional permission assigned **when sharing**. To satisfy the "read" requirement while strictly adhering to the "No access to reports" constraint, **"Read All SQL analytics endpoint data"** is the only valid choice. This allows them to use T-SQL to validate the data they have ingested without granting any permissions related to Power BI reports or semantic models.
-*   **Why not others?** Granting "Build Reports" is explicitly forbidden by the requirement "No access must be granted to datasets or reports".
-
----
-
-### **Summary of Learning Material for Memorization**
-
-To ensure you can answer variations of this question, memorize this **Mapping of Requirements to Share Permissions**:
-
-| User Need in Case Study | Fabric Sharing Permission to Select |
-| :--- | :--- |
-| **"Create Power BI reports"** | Build Reports on the default dataset |
-| **"Use a Spark notebook"** | Read All Apache Spark |
-| **"Query via T-SQL / Validate Data"** | Read All SQL analytics endpoint data |
-
-**Key Constraint to Remember:**
-In the Litware case, **Data Engineers** are the only group explicitly banned from seeing reports. Therefore, any answer involving "Build Reports" for a Data Engineer is automatically incorrect.
-
-### **Further Learning Resources**
-*   [**Microsoft Fabric Security: Sharing and Permissions**](https://learn.microsoft.com/en-us/fabric/security/service-admin-premium-multi-geo)
-*   [**Manage SQL Granular Permissions in Fabric**](https://learn.microsoft.com/en-us/fabric/data-warehouse/sql-granular-permissions)
-*   [**Data Science Roles and Permissions**](https://learn.microsoft.com/en-us/fabric/data-science/data-science-roles-permissions)
-
-**Analogy for Sharing vs. Workspace Roles:**
-Think of a **Workspace Role** (like Member) as a **Master Key** to a workshop; you can use every tool inside. Think of **Sharing Permissions** as a **Specific Work Order**; you are letting someone into the workshop just to use the **lathe (Spark)**, the **drill (SQL)**, or to **take a photo of the finished product (Build Reports)**. The Case Study asks you to pick the specific tool for the job.
+**Analogy for Table.Profile:**
+Think of **Table.Profile** like a **Medical Check-up Report** for your data. Instead of looking at every single patient (row) to see who is the tallest, the report gives you a summary page that lists the "Max Height," "Average Weight," and "Total Count" for every room (column) in the hospital at once.
