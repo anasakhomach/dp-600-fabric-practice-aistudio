@@ -1,0 +1,7 @@
+{
+  "name": "dp-600-fabric-practice",
+  "compatibility_date": "2024-12-30",
+  "assets": {
+    "directory": "./dist"
+  }
+}
